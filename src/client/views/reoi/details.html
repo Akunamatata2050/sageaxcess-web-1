@@ -1,0 +1,68 @@
+<div id="reoi-details">
+	<!-- <h2><span>Risk Events of Interest</span></h2> -->
+	<div ng-if="loading" process-lines></div>
+	<div ng-if="!loading">
+		<label>
+			<input type="checkbox" ng-checked="allEventsIds.length === selectedEvents.length" ng-click="toggleAllEvents()">
+			Select all events
+		</label>
+		<div reoi-timeline data="data.Anomalies" options="timelineOptions" selected="selectedEvents"></div>
+		
+		<div class="reoi-grid">
+			<div class="column">
+				<div class="table">
+					<div class="users" collapsible>
+						<div class="table-cell">
+							<div class="wrapper" ng-style="{position: setPosition == 'true' ? relative : absolute}">
+								<div reoi-list data="selectedData" fields="'User'" title="'Users'" links="links" link="'/users/details/'" activities="usersActivity"></div>
+								<div reoi-list data="selectedData" fields="'Account'" title="'Accounts'" links="links"></div>
+							</div>
+						</div>
+					</div>
+					<div class="resources" collapsible>
+						<div class="table-cell">
+							<div class="wrapper">
+								<div reoi-list data="selectedData" fields="'ResourceName'" title="'Resources'" links="links" before-each-func="getFileTypeIcon"></div>
+								<div reoi-list data="selectedData" fields="'ExecutableName'" title="'Executables'" links="links" before-each-func="getFileTypeIcon"></div>
+							</div>
+						</div>
+					</div>
+					<div class="sources" collapsible>
+						<div class="table-cell">
+							<div class="wrapper">
+								<div reoi-list data="selectedData" fields="'SourceIP'" title="'Sources'" links="links" activities="{}"></div>
+								<div reoi-list data="selectedData" fields="'SourceLocation'" title="'Locations'" links="links"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="table">
+					<div collapsible>
+						<div class="table-cell reoi-info">
+							<div ng-if="selectedData.length" reoi-info data="selectedData"></div>
+							<div ng-if="!selectedData.length" class="no-data" ng-if="!data.length">No data</div>
+						</div>
+					</div>
+					<div class="ports" collapsible>
+						<div class="table-cell">
+							<div class="wrapper">
+								<div reoi-list data="selectedData" fields="['SourcePort', 'DestinationPort']" title="'Ports'" links="links" row-func="portsRowFunc" header-func="portsHeaderFunc" ></div>
+								<div reoi-list data="selectedData" fields="'SourceIP'" title="'Sources'" links="links" row-func="sourceRowFunc" header-func="sourceHeaderFunc" activities="{}"></div>
+							</div>
+						</div>
+					</div>
+					<div class="destinations" collapsible>
+						<div class="table-cell">
+							<div class="wrapper">
+								<div reoi-list data="selectedData" fields="'DestinationIP'" title="'Destinations'" links="links" activities="{}"></div>
+								<div reoi-list data="selectedData" fields="'DestinationLocation'" title="'Locations'" links="links"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

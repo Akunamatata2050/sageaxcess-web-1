@@ -1,0 +1,76 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<h4 class="modal-title"><span ng-i18next="modal.my_profile.title"></span></h4>
+	</div>
+	<form class="form-horizontal row-border" role="form" name="userForm" ng-submit="modal.ok()" novalidate>
+
+		<alert ng-repeat="alert in modal.chgProfileAlerts" type="{{alert.type}}" close="modal.closeAlert($index)">{{alert.msg | i18next}}</alert>
+		<div class="h-form-sa">
+			<div class="table no-top-border">
+
+				<label class="row" ng-class="{'has-error': userForm.inputEmail.$dirty && userForm.inputEmail.$invalid}">
+					<div class="cell name"><span ng-i18next="form.profile.fields.email"></span></div>
+					<div class="cell">
+						<input type="text" name="inputEmail" highlight-row ng-model="modal.user.Email" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" required ng-change="emailChanged=true">
+						<span ng-if="isChromeOrSafari" ng-show="userForm.inputEmail.$dirty && userForm.inputEmail.$error.required" class="help-block" style="margin-top:-20px;" ng-i18next="form.profile.error_messages.username_email_required"></span>
+						<span ng-if="!isChromeOrSafari" ng-show="userForm.inputEmail.$dirty && userForm.inputEmail.$error.required" class="help-block" style="margin-top:-50px;" ng-i18next="form.profile.error_messages.username_email_required"></span>
+					</div>
+				</label>
+
+				<label class="row" ng-class="{'has-error': userForm.password.$invalid && !userForm.password.$pristine}" ng-if="emailChanged && modal.originalUser.Email != modal.user.Email">
+					<div class="cell name"><span ng-i18next="form.profile.fields.password"></span></div>
+					<div class="cell">
+						<input type="password" name="password" highlight-row ng-model="modal.user.Password" required>
+						<span ng-if="isChromeOrSafari" ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block" style="margin-top:-20px;" ng-i18next="form.change_password.error_messages.current_password_required"></span>
+						<span ng-if="!isChromeOrSafari" ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block" style="margin-top:-50px;" ng-i18next="form.change_password.error_messages.current_password_required"></span>
+					</div>
+				</label>
+
+				<label class="row" ng-class="{'has-error': userForm.inputFName.$dirty && userForm.inputFName.$invalid}">
+					<div class="cell name"><span ng-i18next="form.profile.fields.first_name"></span>
+						<span style="color:red;">*</span>
+					</div>
+					<div class="cell">
+						<input type="text" name="inputFName" ng-pattern="/^[a-zA-Z ]{1,25}$/" highlight-row ng-model="modal.user.FirstName" required>
+						<span ng-if="isChromeOrSafari" ng-show="userForm.inputFName.$dirty && userForm.inputFName.$error.required" class="help-block" style="margin-top:-20px;" ng-i18next="form.profile.error_messages.first_name_required"></span>
+						<span ng-if="!isChromeOrSafari" ng-show="userForm.inputFName.$dirty && userForm.inputFName.$error.required" class="help-block" style="margin-top:-50px;" ng-i18next="form.profile.error_messages.first_name_required"></span>
+					</div>
+				</label>
+
+				<label class="row" ng-class="{'has-error': userForm.inputLName.$dirty && userForm.inputLName.$invalid}">
+					<div class="cell name"><span ng-i18next="form.profile.fields.last_name"></span>
+						<span style="color:red;">*</span>
+					</div>
+					<div class="cell">
+						<input type="text" name="inputLName" ng-pattern="/^[a-zA-Z ]{1,25}$/" highlight-row ng-model="modal.user.LastName" required>
+						<span ng-if="isChromeOrSafari" ng-show="userForm.inputLName.$dirty && userForm.inputLName.$error.required" class="help-block"  style="margin-top:-20px;" ng-i18next="form.profile.error_messages.last_name_required"></span>
+						<span ng-if="!isChromeOrSafari" ng-show="userForm.inputLName.$dirty && userForm.inputLName.$error.required" class="help-block"  style="margin-top:-50px;" ng-i18next="form.profile.error_messages.last_name_required"></span>
+					</div>
+				</label>
+
+				<label class="row">
+					<div class="cell name"><span ng-i18next="form.profile.fields.department"></span></div>
+					<div class="cell">
+						<select name="inputDepartment" ng-model="modal.user.DepartmentID" style="border-right-width:1px;" ng-options="department.EntityID as department.Name for department in modal.departments">
+							<option value="">Not Selected</option>
+						</select>
+					</div>
+				</label>
+
+				<label class="row">
+					<div class="cell name"><span ng-i18next="form.profile.fields.office"></span></div>
+					<div class="cell">
+						<select name="inputOffice" ng-model="modal.user.OfficeID" style=" border-right-width:1px;" ng-options="office.EntityID as office.Name for office in modal.offices">
+							<option value="">Not Selected</option>
+						</select>
+					</div>
+				</label>
+
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" ng-disabled="modal.saving || !modal.canSubmit()"><span ng-i18next="button.save"></span></button>
+			<button type="reset" class="btn btn-default" ng-click="modal.cancel()"><span ng-i18next="button.cancel"></span></button>
+		</div>
+	</form>
+</div>

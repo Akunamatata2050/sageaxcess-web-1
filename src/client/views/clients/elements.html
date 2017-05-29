@@ -1,0 +1,26 @@
+<div class="form-group" ng-class="{'has-error': clientForm.$dirty && clientForm.inputName.$invalid}" >
+    <label class="control-label col-sm-2">
+        <span ng-i18next="form.clients.fields.name"></span>
+    </label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" ng-model="clientsCtrl.client.Name" name="inputName" required>
+        <!--    <a href="#" ng-if="clientsCtrl.client.EntityID" editable-textarea="client.Name" e-cols="60" e-rows="2" onaftersave="save()">{{client.Name}}</a> -->
+    </div>
+</div>
+
+<div class="form-footer">
+    <button class="btn btn-primary" type="submit">
+        <span ng-i18next="button.create"></span>
+    </button>   
+
+    <a href="" ng-click="clientsCtrl.save()" ng-show="clientsCtrl.client.EntityID" class="btn btn-primary">
+        <span ng-i18next="button.done"></span>
+    </a>         
+
+    <a href="#/admin/clients" class="btn btn-default" ng-show="clientsCtrl.client && !clientsCtrl.client.EntityID">
+      <span ng-i18next="button.cancel"></span>
+  </a>
+  <a class="btn btn-danger" ng-click="clientsCtrl.removeClient()" ng-show="clientsCtrl.client && clientsCtrl.client.EntityID">  
+      <span ng-i18next="button.remove"></span>
+  </a>
+</div>

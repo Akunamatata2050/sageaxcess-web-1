@@ -1,0 +1,24 @@
+<div class="page" ng-controller="OrganizationsCtrl as organizationCtrl">
+	<h4>Settings</h4>
+	<div class="panel panel-default">	
+		<form name="clientSettingsForm" role="form" novalidate ng-submit="clientSettingsForm.$valid && organizationCtrl.save()" class="form-horizontal row-border">			
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="control-label col-sm-2" ng-class="{'has-error': clientSettingsForm.inputName.$invalid && !clientSettingsForm.inputName.$pristine}">
+						Reset Link Timeout (In Minutes)
+					</label>
+					<div class="col-sm-4">
+						<input ng-pattern="/^([1-9]\d{2,}|[6-9]\d)$/" name="inputName" ng-model="organizationCtrl.organization.ResetLinkTimeoutInMinutes" class="form-control" required>						
+
+						<span ng-if="clientSettingsForm.inputName.$error && clientSettingsForm.inputName.$error.pattern" class="help-block">Warning! Email with reset link might be received with a delay. We recommend using at least 60 minutes</span>
+					</div>
+				</div>
+				<div class="panel-footer">    					  
+					<button type="submit" ng-click="organizationCtrl.notification(organizationCtrl.organization.ResetLinkTimeoutInMinutes)" class="btn btn-primary" ng-if="organizationCtrl.organization && organizationCtrl.organization.EntityID" ng-disabled="saving || clientSettingsForm.$invalid">
+						<span ng-i18next="button.done"></span>
+					</button> 
+				</div>
+			</form>
+
+		</div>
+	</div>

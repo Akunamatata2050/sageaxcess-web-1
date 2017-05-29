@@ -1,0 +1,231 @@
+<div id="dashboard">
+	<div class="panel" ng-if="isEverythingLoading()">
+		<div class="panel-heading"><h2>Loading...</h2></div>
+		<div class="panel-body">
+			<div process-lines></div>
+		</div>
+	</div>
+	<div ng-if="!isEverythingLoading()">
+		<div class="panel">
+			<div class="panel-heading"><h2>Statistics</h2></div>
+			<div class="panel-body">
+				<div process-lines ng-if="loading.statistics"></div>
+				<div class="stat-panel" ng-if="!loading.statistics">
+					<div class="cell" stat-cell value="data.Statistics.Reis" title="'REIs'" diff="'percent'" link="'#/reoi'"></div>
+					<div class="cell" stat-cell value="data.Statistics.Activities" title="'Activities'" diff="'percent'" link="'#/activity'"></div>
+					<div class="cell" stat-cell value="data.Statistics.Resources" title="'Resources'" diff="'percent'" link="'#/activity'"></div>
+					<div class="cell" stat-cell value="data.Statistics.Anomalies" title="'Anomalies'" diff="'percent'"></div>
+					<div class="cell" stat-cell value="data.Statistics.Accounts" title="'Accounts'" diff="'percent'"></div>
+					<div class="cell" stat-cell value="data.Statistics.FirstTimeUsers" title="'First Time Users'" diff="'percent'" link="'#/first-time-users'"></div>
+          <div class="cell" stat-cell value="data.Statistics.FirstTimeEntities" title="'First Time Entities'" diff="'percent'" link="'#/first-time-entities'"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel multi">
+			<div class="table table-sections">
+				<div class="table-cell regions">
+					<div class="panel-heading tall-heading">
+						<h2>Regions By
+							<select ng-model="data.regionsBy" ng-change="updateRegions()" ng-options="item as item for item in aggregationOptions"></select>
+						</h2>
+					</div>
+					<div class="panel-body">
+						<div process-lines ng-if="loading.regions"></div>
+						<div ng-if="!loading.regions">
+							<input search-input class="small-input" ng-model="search.regions">
+							<div class="table-wrapper">
+								<table class="regions-table compact-table" sort-table sort-by="sortOptions.geo">
+									<thead>
+										<tr>
+											<th><span key="Rank.Now">Rank</span></th>
+											<th><span key="Name">Location</span></th>
+											<th><span key="Count.Now">Count</span></th>
+											<th><span key="Percent.Now">PCT.</span></th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="geoItem in data.Regions | orderBy : sortOptions.geo.key : sortOptions.geo.reverse | filter:search.regions" ng-mouseover="data.activeLocation=geoItem.Code" ng-mouseout="data.activeLocation=''" ng-click="route((data.regionsBy === 'Anomalies' ? '/activity' : '/intelligence'))">
+											<td><i class="fa" ng-class="{'fa-arrow-circle-up green':geoItem.Rank.Was > geoItem.Rank.Now, 'fa-arrow-circle-down red':geoItem.Rank.Was < geoItem.Rank.Now}"></i> <span>{{geoItem.Rank.Now}}</span> <span class="was">({{geoItem.Rank.Was}})</span></td>
+											<td class="location-name"><div><div>{{geoItem.Name}}</div></div></td>
+											<td>{{geoItem.Count.Now}}</td>
+											<td class="pct-value">{{geoItem.Percent.Now | number : 0}}%</td>
+											<td><div class="pct-bar"><div ng-style="{'width':geoItem.Percent.Now / data.Map.maxPercentValue * 100 + '%'}"></div></div></td>
+											<td ng-class="{'green':geoItem.Percent.Was > geoItem.Percent.Now, red:geoItem.Percent.Was < geoItem.Percent.Now}"><i class="fa" ng-class="{'fa-arrow-circle-up':geoItem.Percent.Was > geoItem.Percent.Now, 'fa-arrow-circle-down':geoItem.Percent.Was < geoItem.Percent.Now}"></i> {{getAbsoluteDifference(geoItem.Percent.Now, geoItem.Percent.Was) | number : 0}}%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="table map-table">
+								<div class="table-cell map-legend">
+									{{data.Map.maxPercentValue | number : 0}}%
+									<br>
+									<div class="gradient"></div>
+									0%
+								</div>
+								<div class="table-cell map-cell">
+									<div worldmap options="data.Map" active="data.activeLocation"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="table-cell departments">
+					<div class="panel-heading tall-heading">
+						<h2>Top 10 Department By
+							<select ng-model="data.departmentsBy" ng-change="updateDepartments()" ng-options="item as item for item in aggregationOptions"></select>
+						</h2>
+					</div>
+					<div class="panel-body">
+						<div process-lines ng-if="loading.departments"></div>
+						<div ng-if="!loading.departments && data.Departments.values.length<=0">
+							No data found.
+						</div>
+						<div ng-if="!loading.departments && data.Departments.values.length>0">
+							<div class="legend">
+								<div class="clearfix text">
+									<div class="pull-left">0%</div>
+									<div class="pull-right">{{data.Departments.maxValue | number : 0}}%</div>
+								</div>
+							</div>
+							<div class="chart-row" ng-repeat="dep in data.Departments.values | orderBy:'-Value'">
+								<span class="offset" ng-style="{'width':(dep.Value / data.Departments.maxValue * 50) + '%'}"></span><span>{{($index + 1) + '. ' + dep.Name}}</span>
+								<a class="bar" ng-href="{{data.departmentsBy === 'Anomalies' ? '#/activity' : '#/intelligence'}}" ng-style="{'width':(dep.Value / data.Departments.maxValue * 50) + '%'}">{{dep.Value | number : 0}}%</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="table-cell connections">
+					<div class="panel-heading tall-heading">
+						<h2>Users Connected to the Most Resources</h2>
+					</div>
+					<div class="panel-body">
+						<div process-lines ng-if="loading.connections">
+						</div>
+						<div ng-if="!loading.connections">
+							<input search-input class="small-input" ng-model="search.connections">
+							<div class="table-wrapper">
+								<table sort-table class="compact-table" sort-by="sortOptions.connections">
+									<thead>
+										<tr>
+											<th></th>
+											<th><span key="Rank.Now">Rank</span></th>
+											<th><span key="Name">Name</span></th>
+											<th><span key="Connections.Now">Connections</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-click="route('/users/details/' + userItem.Name)" ng-repeat="userItem in data.Connections | orderBy : sortOptions.connections.key : sortOptions.connections.reverse | filter:search.connections" tooltip="{{userItem.Name}}">
+											<td>
+												<div class="userpic-wrapper" ng-class="{'userpic-hacker':userItem.IsHacker}" ng-style="{'background-color': getUsernameColor(userItem.Name)}">
+													<!-- <div class="userpic" ng-style="{'background-image':'url(' + userItem.UserpicUrl + ')'}"></div> -->
+												</div>
+											</td>
+											<td colspan="2">
+												{{userItem.Rank.Now}} <span class="was">({{userItem.Rank.Was}})</span>
+												<i class="fa" ng-class="{'fa-arrow-circle-up green':userItem.Rank.Was > userItem.Rank.Now, 'fa-arrow-circle-down red':userItem.Rank.Was < userItem.Rank.Now}"></i>
+												{{userItem.Name|limitTo: 25}}
+												<span ng-if="userItem.Name.length>25">...</span>
+												<br>
+												<div class="small-faded">
+													<i class="fa fa-map-marker" aria-hidden="true"></i> {{userItem.Location}}<br>
+													{{userItem.Groups}}
+												</div>
+											</td>
+											<td><span class="connections-num">{{userItem.Connections.Now}}</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default risk-events">
+			<div class="panel-heading tall-heading">
+				<h2>
+					Risk Events of Interest
+					<div class="rei-heading-legend">
+						<div class="legend-label day">Day</div>
+						<div class="legend-label night">Night</div>
+						<div class="sine-wrapper">
+							<div class="sine-day">
+								<div class="sine" sine-curve num="2" width="52" height="20"></div>
+							</div>
+							<div class="sine-night">
+								<div class="sine" sine-curve num="2" width="52" height="20"></div>
+							</div>
+						</div>
+					</div>
+				</h2>
+			</div>
+			<div class="panel-body">
+				<div ng-if="loading.rei" process-lines></div>
+				<div ng-if="!loading.rei">
+					<div ng-if="data.REI.length > 0" reoi-timeline data="data.REI" options="{linked:true}" row-height="50"></div>
+					<div ng-if="data.REI.length <= 0">No data found.</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel activities">
+			<div class="panel-heading tall-heading">
+				<h2>Activities</h2>
+				<div class="pull-right"><input search-input class="small-input" ng-model="search.activities"></div>
+			</div>
+			<div class="panel-body">
+				<div ng-if="loading.activities" process-lines></div>
+				<div ng-if="!loading.activities">
+					<table sort-table sort-by="sortOptions.activities">
+						<thead>
+							<tr>
+								<th><span key="EventDate">Date</span></th>
+								<th><span key="Account">User</span></th>
+								<th><span key="Resource">Resource</span></th>
+								<th><span key="Event">Action</span></th>
+								<th><span key="Object">User Agent</span></th>
+								<th><span key="Location">Location</span></th>
+								<th><span key="IP">Source IP</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr dir-paginate="activityItem in data.Activities | orderBy : sortOptions.activities.key : sortOptions.activities.reverse | filter:search.activities | itemsPerPage: sortOptions.activities.itemsPerPage" ng-click="route('/activity')">
+								<td>{{activityItem.EventDate|date:' dd MMM yyyy hh:mma'}}</td>
+								<td>{{activityItem.Account}}</td>
+								<td>{{activityItem.Resource}}</td>
+								<td>{{activityItem.Event}}</td>
+								<td>{{activityItem.Object}}</td>
+								<td>{{activityItem.Location}}</td>
+								<td>{{activityItem.IP}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="clearfix" ng-if="data.Activities.length > 10">
+					<div class="pull-right pagination-wrapper">
+						<dir-pagination-controls></dir-pagination-controls>
+						<span class="items-per-page" ng-if="sortOptions.activities.itemsPerPage === 10" ng-click="sortOptions.activities.itemsPerPage = 50">view 50</span>
+						<span class="items-per-page" ng-if="sortOptions.activities.itemsPerPage === 50" ng-click="sortOptions.activities.itemsPerPage = 10">view 10</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade in" tabindex="-1" style="z-index:99999999999999;" ng-if="isLoggedInWithGmail">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title color-red">Warning</h6>
+      </div>
+      <div class="modal-body" style="display: inline-flex;">
+        <p class="" style="font-size: 1rem;    margin-bottom: 0px;">
+           The user has been logged in with Gmail account.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

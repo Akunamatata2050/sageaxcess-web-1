@@ -1,0 +1,87 @@
+<h2 class="no-border no-margin">User Details</h2>
+<div id="user-details">
+	<div class="panel">
+		<div class="panel-heading">
+			<div class="portrait-wrapper">
+				<div class="portrait demo-portrait"></div>
+			</div>
+			<h2>{{info.Name}}</h2>
+			<div class="pull-right"><button class="btn btn-primary">Research</button><button class="btn btn-primary">Follow</button></div>
+		</div>
+		<div>
+			<div class="user-info">
+				<table>
+					<tr>
+						<td class="stat risk" ng-class="info.RiskLevel">
+							<span class="risk-level" ng-if="info.RiskLevel == 'high'">High Risk</span>
+							<span class="risk-level" ng-if="info.RiskLevel == 'medium'">Medium Risk</span>
+							<span class="risk-level" ng-if="info.RiskLevel == 'low'">Low Risk</span>
+							<span class="ti ti-arrow-top-right" ng-class="{'flip-y':info.RiskDifference < 0}"></span>
+							<span class="stat-value">{{info.RiskValue}}</span>
+						</td>
+						<td>
+							<span class="faded-text">Status:<br></span>
+							<span class="user-status" ng-class="{'active': userDetailsController.userDetails.Status == 'Active'}"><i class="fa fa-circle" aria-hidden="true"></i>{{userDetailsController.userDetails.Status}}</span>
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Type:<br></span>
+							{{info.Type}}
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Department:<br></span>
+							<!-- {{info.Department}} -->
+						</td>
+						<td>
+							<span class="faded-text">First Seen:<br><span ng-if="loadingData">Loading...</span></span>
+							{{userDetailsController.userDetails.UserFirstSeen}} 
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Manager:<br></span>
+							{{info.Manager}}
+						</td>
+					</tr>
+					<tr>
+						<td class="stat anomalies">
+							Anomalies
+							<span class="ti ti-arrow-top-right" ng-class="{'flip-y':info.AnomaliesDifference < 0}"></span>
+							<span class="stat-value">{{userDetailsController.userDetails.AnomaliesCount}}</span>
+						</td>
+						<td ng-if="false">
+							<a href=""><span class="faded-text">Email:<br></span>{{info.Email}}</a>
+						</td>
+						<td>
+							<span class="faded-text">Office:<br></span>
+							{{info.Office}}
+						</td>
+						<td ng-if="false" >
+							<span class="faded-text">Title:<br></span>
+							{{info.Title}}
+						</td>
+						<td>
+							<span class="faded-text">Last Seen:<br><span ng-if="loadingData">Loading...</span></span>
+							{{userDetailsController.userDetails.UserLastSeen}}
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Department:<br></span>
+							{{info.ManagerDepartment}}
+						</td>
+					</tr>
+				</table>
+			</div>
+			<tabset tab-theme="default" tab-position="top">
+				<tab heading="Overview">
+					<div ng-include="'views/users/user_details/overview.html'"></div>
+				</tab>
+				<tab heading="Activities">
+					<div ng-include="'views/users/user_details/activities.html'"></div>
+				</tab>
+				<tab heading="Events of Interest">
+					<div ng-include="'views/users/user_details/events.html'"></div>
+				</tab>
+				<tab heading="Relationships">
+					<div ng-include="'views/users/user_details/relationships.html'"></div>
+				</tab>
+			</tabset>
+		</div>
+	</div>
+</div>

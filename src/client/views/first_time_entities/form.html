@@ -1,0 +1,78 @@
+<div class="page" ng-controller="UsersCtrl as usersCtrl">
+	<!-- <h2 ng-i18next="list.users.title"></h2> -->
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+		<form name="userForm" role="form" novalidate ng-submit="userForm.$valid && usersCtrl.save()" class="form-horizontal row-border">
+			<div style="margin:30px;">
+				<alert ng-repeat="alert in usersCtrl.userAlerts" type="{{alert.type}}" close="usersCtrl.closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="panel-body">
+				<div class="form-group required">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.users.fields.first_name"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="inputFirstName" ng-model="usersCtrl.user.FirstName"  class="form-control" required>
+					</div>
+				</div>
+
+				<div class="form-group required">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.users.fields.last_name"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="inputLastName" ng-model="usersCtrl.user.LastName"  class="form-control" required>
+					</div>
+				</div>
+
+				<div class="form-group required">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.users.fields.email"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputEmail" ng-model="usersCtrl.user.Email"  class="form-control" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" required>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.users.fields.phone"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputPhone" ng-model="usersCtrl.user.Phone"  class="form-control">
+					</div>
+				</div>			
+
+				<div class="form-group required">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.users.fields.permission"></span>
+					</label>
+					<div class="col-sm-4">
+						<select class="form-control" ng-options="permission.value as permission.name for permission in usersCtrl.permissions" ng-model="usersCtrl.user.PermissionLevel" required ng-if="usersCtrl.user.EntityID !== loggedInUser.UserAccountID">
+							<option value="">Select</option>
+						</select>
+						<p class="form-control-static" ng-if="usersCtrl.user.EntityID == loggedInUser.UserAccountID" >
+							<span>{{usersCtrl.permissions[usersCtrl.user.PermissionLevel].name}}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">    
+				<button type="submit" class="btn btn-primary" ng-show="usersCtrl.user && !usersCtrl.user.EntityID" ng-disabled="userForm.$invalid || saving || usersCtrl.saving">
+					<span ng-i18next="button.create"></span>
+				</button>   
+
+				<button type="submit" class="btn btn-primary" ng-show="usersCtrl.user && usersCtrl.user.EntityID" ng-disabled="userForm.$invalid || saving ">
+					<span ng-i18next="button.done"></span>
+				</button> 
+
+				<a href="#/admin/users" class="btn btn-default" ng-show="usersCtrl.user && !usersCtrl.user.EntityID">
+					<span ng-i18next="button.cancel"></span> 
+				</a>
+				<a class="btn btn-danger" ng-click="usersCtrl.user && usersCtrl.removeUser()" ng-show="usersCtrl.user.EntityID && usersCtrl.user.EntityID !== loggedInUser.UserAccountID">
+					<span ng-i18next="button.remove"></span>
+				</a>
+			</div>
+		</form>
+	</div>
+</div>

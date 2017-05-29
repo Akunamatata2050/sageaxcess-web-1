@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15.656" height="14.844" viewBox="0 0 15.656 14.844">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="chart-bars.svg" class="cls-1" d="M497.688,81.594V66.75h4.125V81.594h-4.125Zm-5.751-9.844h4.125v9.844h-4.125V71.75Zm-5.781,4.094h4.125v5.75h-4.125v-5.75Z" transform="translate(-486.156 -66.75)"/>
+</svg>

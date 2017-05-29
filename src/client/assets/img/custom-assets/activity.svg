@@ -1,0 +1,11 @@
+<svg id="activity.svg" xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75" viewBox="0 0 16.75 16.75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M20.628,394.122V377.378H37.372v16.744H20.628Zm14.991-1.751v-5.554H34.035l-2.682,3.14-4.841-5.6-2.084,2.459H22.381v5.554H35.619ZM22.381,379.133v5.632h1.38l2.751-3.508,4.859,5.7,1.87-2.194h2.378v-5.632H22.381Z" transform="translate(-20.625 -377.375)"/>
+</svg>

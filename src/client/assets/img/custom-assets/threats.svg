@@ -1,0 +1,11 @@
+<svg id="threats.svg" xmlns="http://www.w3.org/2000/svg" width="21.344" height="19.281" viewBox="0 0 21.344 19.281">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Shape_73_copy" data-name="Shape 73 copy" class="cls-1" d="M40.867,445.579l-8.433,6.868v-3.555H29.383v6.269H27.37v-8.2h6.7v1.484l3.519-2.866-3.519-2.866V444.2h-6.7V435.87h2.012v6.4h3.052v-3.554Zm-21.335-3.313h5.826v6.626H19.531v-6.626Z" transform="translate(-19.531 -435.875)"/>
+</svg>

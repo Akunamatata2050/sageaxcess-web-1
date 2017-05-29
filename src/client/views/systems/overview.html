@@ -1,0 +1,53 @@
+<div id="systems-overview">
+	<ol class="breadcrumb">
+	    <li class="active">Security Insider</li>
+	</ol>
+	<ul class="date-range">
+		<!-- <li ng-class="{active:range == 'h'}" ng-click="range='h'">Hour</li> -->
+		<li ng-class="{active:range == 'd'}" ng-click="range='d'">Day</li>
+		<li ng-class="{active:range == 'w'}" ng-click="range='w'">Week</li>
+		<li ng-class="{active:range == 'm'}" ng-click="range='m'">Month</li>
+		<li ng-class="{active:range == 'q'}" ng-click="range='q'">Quarter</li>
+		<li ng-class="{active:range == 'y'}" ng-click="range='y'">Year</li>
+		<!-- <li class="set" ng-click="range='custom'">Set date range</li> -->
+		<!-- <li ng-if="range=='custom'">
+			<div class="input-daterange input-group" id="datepicker-range">
+				<input type="text" class="input-small form-control" name="start" />
+				<span class="input-group-addon">to</span>
+				<input type="text" class="input-small form-control" name="end" />
+			</div>
+		</li> -->
+	</ul>
+	<div date-navigator options="options" range="range"></div>
+
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h2>Overview</h2>
+	        <div class="pull-right">
+	        	<div class="chart-filters">
+		        	<input type="text" class="search-input systems" placeholder="Filter by Systems" ng-model="filterSystems">
+		        	<input type="text" class="search-input users" placeholder="Filter by Users" ng-model="filterUsers">
+		        </div>
+	        	<div class="chart-selector">
+	        		<i class="diagram-radial" ng-class="{active:diagramType=='radial'}" ng-click="setDiagramType('radial')"></i>
+	        		<i class="diagram-grid" ng-class="{active:diagramType=='grid'}" ng-click="setDiagramType('grid')"></i>
+	        	</div>
+	        </div>
+	    </div>
+	    <div class="diagram-stat" ng-if="stat">
+    		<div class="blue">Users: {{stat.Users.Active + stat.Users.Inactive}}</div>
+    		<div class="blue">Active: {{stat.Users.Active}}</div>
+    		<div class="blue">Inactive: {{stat.Users.Inactive}}</div>
+    		<div class="red">Systems: {{stat.Systems.Active + stat.Systems.Inactive}}</div>
+    		<div class="red">Active: {{stat.Systems.Active}}</div>
+    		<div class="red">Inactive: {{stat.Systems.Inactive}}</div>
+    	</div>
+	    <div class="panel-body">
+
+	     	<div ng-if="chartDataReady && diagramType == 'grid'" systems-grid class="grid-diagram" data="overviewData" search-rows="filterUsers" search-cols="filterSystems" stat-func="setStat(value)">
+			</div>
+			<div ng-if="chartDataReady && diagramType == 'radial'" systems-radial data="overviewData" class="radial-diagram" search-rows="filterUsers" search-cols="filterSystems" stat-func="setStat(value)">
+			</div>
+	    </div>
+	</div>
+</div>

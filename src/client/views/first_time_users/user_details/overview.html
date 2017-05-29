@@ -1,0 +1,41 @@
+<div id="user-overview">
+	<div class="stat-panel">
+		<div class="cell">
+			<span ng-if="loadingData">
+				Loading...
+			</span>
+			<span class="value" ng-bind="userDetailsController.userDetails.ActivitiesCount"></span>
+			<span class="change up green" ng-if="userDetailsController.userDetails.ActivityChange>0">{{userDetailsController.userDetails.ActivityChange}}%</span>
+			<span class="change  green" ng-if="userDetailsController.userDetails.ActivityChange==0">{{userDetailsController.userDetails.ActivityChange}}%</span>
+			<span class="change down red" ng-if="userDetailsController.userDetails.ActivityChange<0">{{userDetailsController.userDetails.ActivityChange}}%</span>
+			<br>
+			<span>Activities</span>
+		</div>
+		<div class="cell">
+			<span ng-if="loadingData">
+				Loading...
+			</span>
+			<span class="value" ng-bind="userDetailsController.userDetails.ResourcesCount"></span>
+			<span class="change up green" ng-if="userDetailsController.userDetails.ResourcesChange>0">{{userDetailsController.userDetails.ResourcesChange}}%</span>
+			<span class="change green" ng-if="userDetailsController.userDetails.ResourcesChange==0">{{userDetailsController.userDetails.ResourcesChange}}%</span>
+			<span class="change down red" ng-if="userDetailsController.userDetails.ResourcesChange<0">{{userDetailsController.userDetails.ResourcesChange}}%</span>
+			<br>
+			<span>Resources</span>
+		</div>
+		<div class="cell">
+			<span ng-if="loadingData">
+				Loading...
+			</span>
+			<span class="value">{{userDetailsController.userDetails.AnomaliesCount}}</span><br>
+			<span>Anomalies</span>
+		</div>
+		<div class="cell">
+			<span class="value">{{info.Accounts}}</span><br>
+			<span>Accounts</span>
+		</div>
+		<div class="cell">
+			<span class="value" tooltip-html-unsafe="<p>[Troy, MI]<p> [Tulsa, OK] <p> [Fayetteville, NC]" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip-append-to-body="true">{{info.Locations}}</span><br>
+  			<span>Locations</span>
+		</div>
+	</div>
+</div>

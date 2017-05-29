@@ -1,0 +1,19 @@
+<div ng-if="loading.rei" process-lines></div>
+<div ng-if="!loading.rei">
+  <div>
+      <div class="rei-heading-legend" style="margin:0 0 10px 0;">
+        <div class="legend-label day">Day</div>
+        <div class="legend-label night">Night</div>
+        <div class="sine-wrapper">
+          <div class="sine-day">
+            <div class="sine" sine-curve num="2" width="52" height="20"></div>
+          </div>
+          <div class="sine-night">
+            <div class="sine" sine-curve num="2" width="52" height="20"></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div ng-if="data.REI.length > 0" reoi-timeline data="data.REI" options="{linked:true}" row-height="50"></div>
+  <div ng-if="data.REI.length <= 0">No data found.</div>
+</div>

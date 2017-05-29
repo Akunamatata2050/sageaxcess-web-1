@@ -1,0 +1,17 @@
+<div id="reoi-timeline">
+	<div date-navigator ng-if="options" options="options" range="range" callback="reloadData" class="date-navigator"></div>
+	<div class="panel panel-default">
+		<div class="panel-body" >
+			<div ng-if="loading" process-lines></div>
+			<div ng-if="!loading">	
+				<div ng-if="data.length > 0" reoi-timeline data="data" options="{linked:true}" start-date="dataStartDate" end-date="dataEndDate"></div>
+				<div ng-if="data.length <= 0">No data found.</div>
+			</div>
+		</div>
+	</div>
+	<div class="reoi-legend">
+		<span>Day</span>
+		<div class="sine-image" sine-curve width="70" height="20"></div>
+		<span class="align-right">Night</span>
+	</div>
+</div>

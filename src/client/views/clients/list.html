@@ -1,0 +1,22 @@
+<div class="page" ng-controller="ClientsCtrl as clientsCtrl" id="clientsList">
+    <h2 ng-i18next="list.clients.title"></h2>
+    <a class="btn add-btn" href="#/admin/clients/new" ng-i18next="button.add"></a>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered no-border no-margin clickable-table">       
+                <thead class="left-align">
+                    <tr>
+                        <th><span ng-i18next="list.clients.columns.name"></span></th>
+                    </tr>
+                </thead>
+                <tbody>         
+                    <tr class="plain-data" ng-repeat="client in clientsCtrl.clients" ng-click="clientsCtrl.edit(client)">
+                        <td>
+                            <span ng-bind="client.Name"></span>
+                        </td>               
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

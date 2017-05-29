@@ -1,0 +1,21 @@
+<div ng-if="loading.overview" process-lines></div>
+<div ng-if="!loading.overview" id="user-overview">
+	<div class="stat-panel">
+		<div class="table-row">
+			<div class="cell">Lifetime</div>
+			<div class="cell" stat-cell value="data.Overview.Lifetime.Activities" title="'Activities'" ></div>
+			<div class="cell" stat-cell value="data.Overview.Lifetime.Resources" title="'Resources'" ></div>
+			<div class="cell" stat-cell value="data.Overview.Lifetime.Anomalies" title="'Anomalies'" ></div>
+			<div class="cell" stat-cell value="data.Overview.Lifetime.Accounts" title="'Accounts'"></div>
+			<div class="cell" stat-cell value="data.Overview.Lifetime.Locations" title="'Locations'" tooltip-text="data.Overview.Lifetime.Locations.Values.join('<br>')"></div>
+		</div>
+		<div class="table-row">
+			<div class="cell">Last 24</div>
+			<div class="cell" stat-cell value="data.Overview.Last24.Activities" title="'Activities'" diff="'percent'"></div>
+			<div class="cell" stat-cell value="data.Overview.Last24.Resources" title="'Resources'" diff="'percent'"></div>
+			<div class="cell" stat-cell value="data.Overview.Last24.Anomalies" title="'Anomalies'" diff="'percent'"></div>
+			<div class="cell" stat-cell value="data.Overview.Last24.Accounts" title="'Accounts'" diff="'percent'"></div>
+			<div class="cell" stat-cell value="data.Overview.Last24.Locations" title="'Locations'" diff="'percent'" tooltip-text="data.Overview.Last24.Locations.Values.join('<br>')"></div>
+		</div>
+	</div>
+</div>

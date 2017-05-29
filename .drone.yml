@@ -1,0 +1,26 @@
+pipeline:
+  build:
+    image: sageaxcess/web-base
+    auth_config:
+      username: sageaxcessbuild
+      password: SageAxcess#1
+      email: jgrieves@sageaxcess.com
+    commands:
+      # copy the code and avoid install all the node packages 
+      - cp -Rf src/* /sageaxcess-web/src
+      # change workdir
+      - cd /sageaxcess-web/src
+      - npm install
+      - npm install -g bower grunt-cli
+      - bower install --allow-root
+      - npm test
+  docker:
+    image: plugins/docker:1.12
+    username: sageaxcessbuild
+    password: SageAxcess#1
+    email: jgrieves@sageaxcess.com
+    repo: sageaxcess/sageaxcess-web
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    tags:
+      - tested

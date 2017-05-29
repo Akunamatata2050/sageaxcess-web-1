@@ -1,0 +1,42 @@
+<div id="systems-overview" ng-controller="AnomalyController as vm">
+	<div class="panel panel-default">	  
+		<div class="panel-heading">			
+			<div class="col-sm-6">
+				<h2>Select Range</h2>
+			</div>
+			<div class="col-sm-6" style="text-align: right;">
+				<div class="form-group">
+					<label class="col-sm-offset-2 control-label col-sm-4">
+						<span>Filter by Office</span>
+					</label>
+					<div class="col-sm-6" style="margin-top: 10px;">						 
+						<select name="Office" ng-model="vm.OfficeID" class="form-control pull-right" ng-options="office.EntityID as office.Name for office in vm.offices">
+							<option value="">All</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div ng-show="!vm.options">
+				Loading ...
+			</div>
+			<div  date-navigator ng-if="vm.options" options="vm.options" range="vm.range" callback="reloadData" class="date-navigator"></div>
+		</div>
+	</div>	
+	<div class="panel panel-default">	  
+		<div class="panel-heading">		
+			<h2>Anomalies</h2>
+		</div>
+		<div class="panel-body">
+			<div ng-if="vm.chartDataReady && overviewData.Users.length" anomaly-grid class="grid-diagram scrollbar-display" data="overviewData" style="min-height: 125px;" >
+			</div>
+			<div ng-show="vm.chartDataReady && !overviewData.Users.length">
+				No data found.
+			</div>
+			<div ng-show="!vm.chartDataReady">
+				Loading chart data ...
+			</div>
+		</div>
+	</div>
+</div>

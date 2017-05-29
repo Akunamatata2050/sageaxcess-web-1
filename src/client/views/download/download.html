@@ -1,0 +1,83 @@
+<div id="download">
+	<div class="os-selector">
+		<div ng-class="{active:os == 'windows'}" ng-click="os = 'windows'"><span><i class="ti-microsoft"></i> Windows</div>
+		<div ng-class="{active:os == 'mac'}" ng-click="os = 'mac'"><span><i class="ti-apple"></i>OS X</span></div>
+		<div ng-class="{active:os == 'linux'}" ng-click="os = 'linux'"><span><i class="ti-linux"></i>Linux</span></div>
+	</div>
+
+	<div class="list">
+		<div>
+			<div>
+				<div class="panel">
+					<header>
+						<h3>Local Collector</h3>
+						<i class="agent"></i>
+					</header>
+					<div class="content">
+						<div ng-if="os == 'windows'">
+							<a class="download-big" href="http://downloads.sageaxcess.com/beta/windows/setup-aegis-2.4.1-x86.exe">Download Installer</a>
+						</div>
+						<div ng-if="os == 'mac'">
+							<div class="homebrew-logo"></div>
+							<div>To install via Homebrew (simple method): 
+								<pre>brew tap SageAxcess/aegis</pre>
+							</div>
+							<div class="or"></div>
+							<a href="http://downloads.sageaxcess.com/beta/osx/aegis_2.4.1_x86_64.tar.gz">Download (advanced method)</a>
+						</div>
+						<div ng-if="os == 'linux'">
+							<ul>
+								<li class="arch"><a href="http://downloads.sageaxcess.com/beta/arch/aegis-2.4.1-1.pkg.tar.xz">Arch Linux</a></li>
+								<li class="centos"><a href="http://downloads.sageaxcess.com/beta/centos/aegis-2.4.1-1.x86_64.rpm">CentOS Linux (.rpm)</a></li>
+								<li class="debian"><a href="http://downloads.sageaxcess.com/beta/debian/aegis_2.4.1-1_amd64.deb">Debian Linux (.deb)</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<div class="panel">
+					<header>
+						<h3>Aggregator</h3>
+						<i class="aggregator"></i>
+					</header>
+					<div class="content">
+						<div class="docker-logo"></div>
+						<div>
+							To run via Docker (simple method):
+							<pre>docker pull sageaxcess/data-aggregator</pre>
+							Then go to your <a href="#/admin/organization">Organization</a> page for a list of API Keys and run commands
+						</div>
+
+						<div ng-if="os == 'windows'">
+							<div class="or"></div>
+							<a href="http://downloads.sageaxcess.com/beta/windows/setup-aggregator-0.7.6-x64.exe">Download Installer</a>
+						</div>
+						<div ng-if="os == 'mac'">
+						</div>
+						<div ng-if="os == 'linux'">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<div class="panel">
+					<header>
+						<h3>Network Monitor</h3>
+						<i class="monitor"></i>
+					</header>
+					<div class="content">
+						<div class="docker-logo"></div>
+						<div>To run via Docker (simple method): 
+							<pre>docker run -i -t --net=host sageaxcess/network-monitor &lt;aggregator IP address&gt;</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

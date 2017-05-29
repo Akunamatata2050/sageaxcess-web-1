@@ -1,0 +1,15 @@
+<div class="modal-content"><!-- ng-controller="ProfileCtrl" -->
+	<div class="modal-header">
+		<h4 class="modal-title">Aegis End User License Agreement</h4>
+	</div>
+	<div class="modal-body scroll-to-activate" style="max-height: 400px;overflow:auto;" callback="modal.updateContentViewed()">
+		<p>[TODO: Replace this with actual license content]</p>
+
+		<!-- To create scroll affect. TODO: Remove when actual content added-->
+		<p style="height:400px">&nbsp;</p>		
+		</div>	
+	</div>
+	<div class="modal-footer no-border">
+		<button type="submit"  ng-disabled="!modal.contentViewed" class="btn btn-primary" ng-click="modal.save()">I Accept</button>
+	</div>
+</div>

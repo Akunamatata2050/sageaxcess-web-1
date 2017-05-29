@@ -1,0 +1,39 @@
+<div class="page" ng-controller="DepartmentsCtrl as departmentsCtrl">
+	<h2 ng-i18next="list.departments.title"></h2>
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+		<alert ng-repeat="alert in departmentsCtrl.alerts" type="{{alert.type}}" close="departmentsCtrl.closeAlert($index)">{{alert.msg}}</alert>
+		<form name="departmentForm" role="form" novalidate ng-submit="departmentForm.$valid && departmentsCtrl.save()" class="form-horizontal row-border">
+			<div style="margin:30px;">
+				<alert ng-repeat="alert in departmentsCtrl.departmentAlerts" type="{{alert.type}}" close="departmentsCtrl.closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="panel-body">
+				<div class="form-group required">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.departments.fields.name"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputName" ng-model="departmentsCtrl.department.Name" ng-maxlength="20" class="form-control" required>
+					</div>
+				</div>
+				<div class="panel-footer">    
+					<button type="submit" class="btn btn-primary" ng-show="departmentsCtrl.department && !departmentsCtrl.department.EntityID" ng-disabled="departmentForm.$invalid || saving || departmentsCtrl.saving">
+						<span ng-i18next="button.create"></span>
+					</button>  
+ 
+					<button type="submit" class="btn btn-primary" ng-show="departmentsCtrl.department && departmentsCtrl.department.EntityID" ng-disabled="departmentForm.$invalid || saving">
+						<span ng-i18next="button.done"></span>
+					</button> 
+
+					<a href="#/admin/departments" class="btn btn-default" ng-show="departmentsCtrl.department && !departmentsCtrl.department.EntityID">
+						<span ng-i18next="button.cancel"></span> 
+					</a>
+					<a class="btn btn-danger" ng-click="departmentsCtrl.removeDepartment()" ng-show="departmentsCtrl.department.EntityID">
+						<span ng-i18next="button.remove"></span>
+					</a>
+
+				</div>
+			</form>
+
+		</div>
+	</div>

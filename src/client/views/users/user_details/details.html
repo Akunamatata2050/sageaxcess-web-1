@@ -1,0 +1,96 @@
+<div class="panel" ng-if="isEverythingLoading()">
+	<div class="panel-heading"><h2>Loading...</h2></div>
+	<div class="panel-body">
+		<div process-lines></div>
+	</div>
+</div>
+<div id="user-details" ng-if="!isEverythingLoading()">
+	<div class="panel">
+		<div class="panel-heading tall-heading">
+			<div class="portrait-wrapper">
+				<div class="portrait demo-portrait" ng-class="{'userpic-hacker':data.Info.IsHacker}"></div>
+			</div>
+			<h2>{{data.Info.Name}}</h2>
+			<div class="pull-right"><button class="btn btn-primary">Research</button><button class="btn btn-primary">Follow</button></div>
+		</div>
+		<div>
+			<div class="panel-body" ng-if="loading.userInfo">
+				<div process-lines></div>
+			</div>
+			<div class="user-info" ng-if="!loading.userInfo">
+				<table>
+					<tr>
+						<td class="stat risk" ng-class="data.Info.Risk.Level">
+							<!-- <span class="risk-level" ng-if="data.Info.Risk.Level == 'high'">High Risk</span>
+							<span class="risk-level" ng-if="data.Info.Risk.Level == 'medium'">Medium Risk</span>
+							<span class="risk-level" ng-if="data.Info.Risk.Level == 'low'">Low Risk</span>
+							<span class="ti ti-arrow-top-right" ng-class="{'flip-y':data.Info.Risk.Was > data.Info.Risk.Now}"></span>
+							<span class="stat-value">{{data.Info.Risk.Now}}</span> -->
+						</td>
+						<td>
+							<span class="faded-text">Status:<br></span>
+							<span class="user-status" ng-class="{'active': data.Info.Status == 'Active'}"><i class="fa fa-circle" aria-hidden="true"></i>{{data.Info.Status}}</span>
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Type:<br></span>
+							{{data.Info.Type}}
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Department:<br></span>
+							<!-- {{info.Department}} -->
+						</td>
+						<td>
+							<span class="faded-text">First Seen:<br></span>
+							{{data.Info.FirstSeen| date : 'longDate'}}
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Manager:<br></span>
+							{{data.Info.Manager}}
+						</td>
+					</tr>
+					<tr>
+						<td class="stat anomalies">
+							Anomalies
+							<span class="ti ti-arrow-top-right" ng-class="{'flip-y':data.Info.Anomalies.Was > data.Info.Anomalies.Now}" ng-if="data.Info.Anomalies.Was>0 && data.Info.Anomalies.Now>0"></span>
+							<span class="stat-value">{{data.Info.Anomalies.Now}}</span>
+						</td>
+						<td ng-if="false">
+							<a href=""><span class="faded-text">Email:<br></span>{{data.Info.Email}}</a>
+						</td>
+						<td>
+							<span class="faded-text">Office:<br></span>
+							{{data.Info.Office}}
+						</td>
+						<td ng-if="false" >
+							<span class="faded-text">Title:<br></span>
+							{{data.Info.Title}}
+						</td>
+						<td>
+							<span class="faded-text">Last Seen:<br></span>
+							{{data.Info.LastSeen | date : 'longDate'}}
+						</td>
+						<td ng-if="false">
+							<span class="faded-text">Department:<br></span>
+							{{data.Info.ManagerDepartment}}
+						</td>
+					</tr>
+				</table>
+			</div>
+			<tabset tab-theme="default" tab-position="top">
+				<tab heading="Overview">
+					<div ng-include="'views/users/user_details/overview.html'"></div>
+				</tab>
+				<tab heading="Activities">
+					<div ng-include="'views/users/user_details/activities.html'"></div>
+				</tab>
+				<tab heading="Events of Interest" select="updateREI()">
+					<div ng-include="'views/users/user_details/events.html'"></div>
+				</tab>
+				<tab heading="Relationships">
+					<div ng-include="'views/users/user_details/relationships.html'"></div>
+				</tab>
+			</tabset>
+		</div>
+	</div>
+
+</div>

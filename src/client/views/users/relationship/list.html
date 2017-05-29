@@ -1,0 +1,38 @@
+<div id="user-relationship">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2>
+				<span>Diagram</span>
+			</h2>
+		</div>
+		<div class="panel-body">
+			<div class="relationship-options clearfix">
+				<div class="pull-left relationship-time-period">
+				Time period:
+					<select ng-model="options.timePeriod" ng-change="updateData(null, null, true)">
+						<option value="hour">Last hour</option>
+						<option value="last24">Last 24 hours</option>
+						<option value="week">Last week</option>
+						<option value="all">All</option>
+					</select>
+				</div>
+
+				<div ng-if="!loading" class="pull-left relationship-ready-options">
+					Size of point represent:
+					<select ng-model="options.sortKey" class="relationship-point-represent">
+						<option value="Activity">Activity</option>
+						<option value="">Number of connections</option>
+					</select>
+					<label class="no-margin">
+						<input type="checkbox" ng-model="options.showLinks"/> Show Links
+					</label>
+				</div>
+				<div class="pull-right">
+					<div zoom-control value="options.zoomValue"  min="0.5" max="5" step="options.zoomStep"></div>
+				</div>
+			</div>
+			<div ng-if="loading" process-lines></div>
+			<div ng-if="!loading" relationship data="data" update-func="updateData(type, index, loading)" colors="colors" sort-key="options.sortKey" zoom="options.zoomValue" zoom-step="options.zoomStep" hide-links="!options.showLinks" center-icons="options.icons"></div>
+		</div>
+	</div>
+</div>

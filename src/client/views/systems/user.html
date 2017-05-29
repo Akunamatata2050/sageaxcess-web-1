@@ -1,0 +1,91 @@
+<h2>
+	<ol class="breadcrumb">
+	    <li><a href="#/systems">Security Insider</a></li>
+	    <li class="active"><i class="user"></i>{{overviewData.Users[unitIndex]}}</li>
+	</ol>
+</h2>
+
+<div class="systems-unit">
+	<div date-navigator ng-if="options" options="options" range="range"></div>
+
+	<div class="panel" ng-if="options">
+		<div class="panel-heading">
+			<h2>User Activity</h2>
+			<div class="chart-selector pull-right">
+        		<i class="chart-area" ng-class="{active:unitChartType=='area'}" ng-click="unitChartType='area'"></i>
+        		<i class="chart-bars" ng-class="{active:unitChartType=='bars'}" ng-click="unitChartType='bars'"></i>
+        	</div>
+		</div>
+		<div class="panel-body nvd3-chart">
+			<div ng-if="unitChartType=='area'">
+				<nvd3-stacked-area-chart
+		            data="unitData.Usage.data"
+		            height="400"
+		            showXAxis="true"
+		            showYAxis="true"
+		            tooltips="true"
+		            interactive="true"
+		            useInteractiveGuideline="true",
+		            margin="0",
+		            showLegend="false"
+		            showControls="false"
+		            offset="0"
+		            toolTipContent="nvd3.toolTipContentFunction()"
+		            xAxisTickFormat="nvd3.xAxisTickFormat()"
+		            yAxisTickFormat="nvd3.yAxisTickFormat()">
+			        <svg></svg>
+			    </nvd3-stacked-area-chart>
+			</div>
+			<div ng-if="unitChartType=='bars'">
+				<nvd3-multi-bar-chart
+		            data="unitData.Usage.data"
+		            height="400"
+		            showXAxis="true"
+		            showYAxis="true"
+		            tooltips="true"
+		            interactive="true"
+		            useInteractiveGuideline="true",
+		            margin="0",
+		            showLegend="false"
+		            showControls="false"
+		            offset="0"
+		            stacked="true"
+		            toolTipContent="nvd3.toolTipContentFunction()"
+		            xAxisTickFormat="nvd3.xAxisTickFormat()"
+		            yAxisTickFormat="nvd3.yAxisTickFormat()">
+			        <svg></svg>
+			    </nvd3-multi-bar-chart>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel" ng-if="options">
+		<div class="panel-heading">
+			<h2>Used Systems <span class="details">{{unitData.Usage.data.length}}</span></h2>
+			<div class="pull-right"><input class="search-input" ng-model="tableSearchText"></div>
+		</div>
+
+		<table ng-init="tableOrder='-avg'" class="sa-table">
+			<thead>
+				<th ng-click="tableOrder = tableOrder == 'key'?'-key':'key'"><span class="order" ng-class="{up:tableOrder == 'key', down:tableOrder == '-key'}">Name</span></th>
+				<th ng-click="tableOrder = tableOrder == 'avg'?'-avg':'avg'"><span class="order" ng-class="{up:tableOrder == 'avg', down:tableOrder == '-avg'}">Activity</span></th>
+				<th>
+					<div ng-style="{width:sparklineWidth + 'px'}">
+						<div class="pull-left">{{unitData.dateStart.format('DD MMM YYYY')}}</div>
+						<div class="pull-right">{{unitData.dateEnd.format('DD MMM YYYY')}}</div>
+					</div>
+				</th>
+				<th ng-click="tableOrder = tableOrder == 'FrequencyAvg'?'-FrequencyAvg':'FrequencyAvg'"><span class="order" ng-class="{up:tableOrder == 'FrequencyAvg', down:tableOrder == '-FrequencyAvg'}">Frequency</span></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in unitData.Usage.data | orderBy:tableOrder | filter:tableSearchText">
+					<td><a ng-href="#/systems/system/{{item.index}}">{{item.key}}</a></td>
+					<td><div div-chart-bar value="item.avg / unitData.Usage.avgMax" color="item.color"></div></td>
+					<td><div d3-sparkline data="item" max="unitData.Usage.max" width="sparklineWidth" height="24"></div></td>
+					<td>{{item.FrequencyAvg | number : 1}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

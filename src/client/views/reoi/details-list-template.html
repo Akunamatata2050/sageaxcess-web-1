@@ -1,0 +1,20 @@
+<div class="reoi-list-col">
+	<div class="header">
+		<h4><span ng-bind="title"></span><span class="details" ng-bind="'(' + gridData.length + ')'"></span></h4>
+		<input search-input ng-model="searchText.value">
+	</div>
+	<div class="body">
+		<div class="table">
+			<div class="table-row table-header" ng-if="header && gridData.length">
+				<div class="table-cell" ng-repeat="value in header" ng-bind="value"></div>
+			</div>
+			<div class="table-row list-item" ng-repeat="item in gridData | orderBy:'value' | filter:searchText" 
+				ng-click="select(item)" 
+				ng-dblclick="dblClick(item)"
+				ng-class="{selected:isSelected(item), disabled:isDisabled(item), active:activities[item.value] === 'active', 'activity-loading':activities[item.value] === 'loading'}">
+					<div class="table-cell"><span ng-if="beforeEachFunc" ng-bind-html="beforeEachFunc(item)"></span><span ng-bind="item.value"></span></div>
+					<div class="table-cell" ng-repeat="detail in item.details track by $index" ng-bind="detail"></div>
+			</div>
+		</div>
+	</div>
+</div>

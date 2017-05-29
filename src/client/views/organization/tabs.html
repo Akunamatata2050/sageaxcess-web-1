@@ -1,0 +1,8 @@
+<div ng-controller="OrganizationTabsCtrl as organizationTabsCtrl">
+	<tabset tab-theme="default" tab-position="top"  >
+		<tab ng-repeat="tab in organizationTabsCtrl.tabs" heading="{{tab.Name}}"  active="tab.Status" ng-click="organizationTabsCtrl.gotoTab(tab.Name)">
+			<div ng-include=tab.TemplateUrl></div>
+		</tab>
+	</tabset>
+
+	</div>

@@ -1,0 +1,61 @@
+<header
+id="topnav"
+class="navbar ng-hide {{getLayoutOption('topNavThemeClass')}}"
+ng-controller="MainController"
+role="banner"
+ng-show="isLoggedIn"
+ng-cloak>
+<!-- <a id="leftmenu-trigger" ng-click="toggleLeftBar()"></a> -->
+<!-- <a id="rightmenu-trigger" ng-click="toggleRightBar()"></a> -->
+
+
+	<div class="display-table">
+		<div id="trigger-sidebar" class="table-cell toolbar-trigger toolbar-icon-bg" ng-click="toggleLeftBar()" ng-show="!getLayoutOption('layoutHorizontal')">
+			<a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar"></a>
+		</div>
+		<div class="table-cell align-left">
+			<h2 ng-bind="title"></h2>
+		</div>
+		<div class="table-cell align-center">
+			<span ng-if="loggedInUser.IsAegisAdministrator">		
+				<select ng-model="loggedInUser.LastViewedClientID" ng-options="client.EntityID as client.Name for client in clients" ng-if="clients.length > 0" ng-change="updateLastViewedClientdID()">			
+				</select>
+				<span ng-if="clients.length <= 0" class="text-info">No clients found in the system</span>
+			</span>	
+
+			<span ng-if="!loggedInUser.IsAegisAdministrator && clientName" class="client-name">{{clientName}}</span>
+		</div>
+		<div class="table-cell align-right">
+			<ul class="nav navbar-nav pull-right toolbar user-menu">
+				<li class="dropdown pull-right" ng-show="isLoggedIn" dropdown>
+					<a class="dropdown-toggle" dropdown-toggle>
+						<div class="text">
+							<div class="name" ng-bind="loggedInUser.DisplayName" id="sidebar-info-username"></div>
+							<div class="permission">
+								<span ng-if="loggedInUser.PermissionLevel==0">System Administrator</span>
+								<span ng-if="loggedInUser.PermissionLevel==1">Administrator</span>
+								<span ng-if="loggedInUser.PermissionLevel==2">Analyst</span>
+								<span ng-if="loggedInUser.PermissionLevel==3">Operator</span>
+							</div>
+						</div>
+						<div class="avatar no-avatar"></div>
+					</a>
+					<ul class="dropdown-menu animated userinfo arrow">
+						<li>
+							<a href="javascript:;" ng-click="profile()">
+								<i class="ti ti-user"></i><span>Profile</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;" ng-click="changePassword()">
+								<i class="ti ti-key"></i><span>Change Password</span>
+							</a>
+						</li>			
+						<li class="divider"></li>
+						<li><a href="javascript:;" ng-click="logout()" ><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</header>

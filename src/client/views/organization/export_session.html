@@ -1,0 +1,48 @@
+<div  ng-controller="ExportSessionCtrl as exportSessionCtrl">
+	<form  name="exportSessionForm" role="form" novalidate>
+		<div style="margin:30px;">
+			<alert ng-repeat="alert in exportSessionCtrl.invalidDateAlerts" type="{{alert.type}}" close="exportSessionCtrl.closeAlert($index)">{{alert.msg}}</alert>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 required">
+				<label class="col-sm-4">Start Date</label>
+				<div class="col-sm-6">
+					<div class="input-group" >
+						<input type="text" style="width:200px;margin-bottom:-30px;" class="form-control" datepicker-popup="{{format}}" ng-model="exportSessionCtrl.startDate" ng-click="open($event,'startDt')" is-open="startDt.opened" ng-required="true" close-text="Close" required />
+						<span style="position:absolute;">
+							<button type="button" class="btn btn-default" style="height:32px;min-width:0px;" ng-click="open($event,'startDt')" ><i class="glyphicon glyphicon-calendar" style="top:-2px;"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 required">
+				<label class="col-sm-4">End Date</label>
+				<div class="col-sm-6">
+					<div class="input-group" >
+						<input type="text" style="width:200px;margin-bottom:-30px;" class="form-control" datepicker-popup="{{format}}" ng-model="exportSessionCtrl.endDate" ng-click="open($event,'endDt')" is-open="endDt.opened" ng-required="true" close-text="Close" required />
+						<span  style="position:absolute;">
+							<button type="button" class="btn btn-default" style="height:32px;min-width:0px" ng-click="open($event,'endDt')" ><i class="glyphicon glyphicon-calendar" style="top:-2px;"></i></button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin:3%;">
+			<table class="table table-bordered" style="border-style:solid">
+				<tbody>
+					<tr ng-repeat="data in exportSessionCtrl.tableDetails">
+						<td><input type="checkbox" ng-click="exportSessionCtrl.dataToDownload(data.TableName)"></td>
+						<td ng-bind="data.TableName"></td>
+						<td ng-bind="data.Description"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div>
+			<button class="btn btn-info" ng-click="exportSessionCtrl.download()"  ng-disabled="!exportSessionCtrl.isEnable || exportSessionForm.$invalid">
+				<span ng-i18next="button.download"></span></button>
+			</div>
+		</div>
+	</form>
+</div>

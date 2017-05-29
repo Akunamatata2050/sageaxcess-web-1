@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.969" height="30.25" viewBox="0 0 16.969 30.25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="sidebar-trigger.svg" class="cls-1" d="M559.969,60h-5.883c-0.08,0-.159-0.012-0.239-0.012A7.012,7.012,0,0,0,548,63.125V32.877a7.012,7.012,0,0,0,5.847,3.137c0.091,0,.18-0.01.271-0.014h5.851a5,5,0,0,1,5,5V55A5,5,0,0,1,559.969,60Z" transform="translate(-548 -32.875)"/>
+</svg>

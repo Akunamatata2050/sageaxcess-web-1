@@ -1,0 +1,45 @@
+<div class="page" ng-controller="PathExpressionsCtrl as pathExpressionsCtrl">
+	<!-- <h2 ng-i18next="list.path_expressions.title"></h2> -->
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+
+		<form  name="pathExpressionForm" role="form" novalidate ng-submit="pathExpressionsCtrl.save()" class="form-horizontal row-border">
+			<div class="form-group required" ng-class="{'has-error': pathExpressionForm.$dirty && pathexpressionForm.inputExpression.$invalid}" >
+				<label class="control-label col-sm-2">
+					<span ng-i18next="form.path_expressions.fields.expression"></span>
+				</label>
+				<div class="col-sm-4">
+					<textarea type="text" style="max-width: 100%; max-height: 100%;" class="form-control" ng-model="pathExpressionsCtrl.pathExpression.Expression" rows="5" name="inputExpression" required> </textarea>
+				</div>
+			</div>
+			<div class="form-group required" ng-class="{'has-error': pathexpressionForm.$dirty && pathexpressionForm.inputCategory.$invalid}" >
+				<label class="control-label col-sm-2">
+					<span ng-i18next="form.path_expressions.fields.category"></span>
+				</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="pathExpressionsCtrl.pathExpression.Category" name="inputCategory" required>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+
+				<button type="submit" class="btn btn-primary" ng-show="pathExpressionsCtrl.pathExpression && !pathExpressionsCtrl.pathExpression.EntityID"  ng-disabled="pathExpressionForm.$invalid || saving || pathExpressionsCtrl.saving">
+					<span ng-i18next="button.create"></span>
+				</button>
+
+				<button type="submit" class="btn btn-primary" ng-show="pathExpressionsCtrl.pathExpression && pathExpressionsCtrl.pathExpression.EntityID" ng-disabled="pathExpressionForm.$invalid || saving">
+					<span ng-i18next="button.done"></span>
+				</button>        
+
+				<a href="#/path_expressions" class="btn btn-default" ng-show="pathExpressionsCtrl.pathExpression && !pathExpressionsCtrl.pathExpression.EntityID">
+					<span ng-i18next="button.cancel"></span>
+				</a>
+				<a class="btn btn-danger" ng-click="pathExpressionsCtrl.removePathExpressions()" ng-show="pathExpressionsCtrl.pathExpression.EntityID">  
+				<span ng-i18next="button.remove"></span>
+			</a>
+		</div>
+
+	</form>
+
+</div>
+</div>

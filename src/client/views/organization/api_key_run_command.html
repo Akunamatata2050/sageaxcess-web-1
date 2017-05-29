@@ -1,0 +1,13 @@
+<div class="modal-content">
+	<div class="modal-header">		
+		<h4 class="modal-title">{{modal.apiKey.Name}} run command <a class="pull-right" ng-if="modal.supportsClipboardApi" ng-mouseover="modal.resetTooltip()" ng-click="modal.populateTooltip()" tooltip="{{modal.getTooltip()}}" ngclipboard data-clipboard-text="{{modal.apiKey.Key}}" tooltip-placement="right" style="font-size:16px;"><i class="fa fa-clipboard"></i></a></h4>
+		
+	</div>
+	<div class="modal-body">
+		{{modal.apiKey.Key}}
+	</div>
+	<div class="modal-footer">		
+		<button type="reset" class="btn btn-default" ng-click="modal.ok()">
+			<span ng-i18next="button.ok"></span></button>
+	</div>
+</div>

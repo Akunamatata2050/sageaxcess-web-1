@@ -1,0 +1,76 @@
+<div class="page" ng-controller="UnknownFileUrlListCtrl as unknownFileUrlListCtrl" id="unknownFileUrlList">
+   <!-- <h2 ng-i18next="form.unknown_file_urls.title"></h2> -->
+
+   <a class="btn add-btn" href="#/unknown_file_url/new" ng-i18next="button.add"></a>
+   <div class="panel panel-default">
+    <div class="table-responsive">
+        <div class="panel-heading  display-table">
+            <div class="col-md-6">
+              <form class="form-inline">
+               <div class="checkbox">
+                  <label>
+                    <input type="checkbox" ng-model="unknownFileUrlListCtrl.deleteAll">
+                    Delete all
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 pull-right" style="margin-top:8px;">
+        <form class="full-text-input inline">
+            <input type="text"
+            placeholder="Filter by URL"
+            class="form-control"
+            ng-model="unknownFileUrlListCtrl.searchKeywords" ng-model-options="{debounce: {'default': 300} }">
+        </form>
+    </div>
+</div>
+<table class="table table-striped table-bordered no-border no-margin">       
+    <thead class="left-align clickable-table">
+        <tr>
+            <th class="col-md-3" ng-class="{'sorting_asc':unknownFileUrlListCtrl.row == 'Url', 'sorting_desc':unknownFileUrlListCtrl.row == '-Url'}" ng-click="unknownFileUrlListCtrl.order('Url')">
+                <span ng-i18next="list.unknown_file_urls.columns.url"></span>
+                <i class="fa" ng-class="{'fa-angle-up': unknownFileUrlListCtrl.sortcolumn=='Url', 'fa-angle-down': unknownFileUrlListCtrl.sortcolumn=='-Url'}"></i>
+            </th>
+            <th class="col-md-3" ng-class="{'sorting_asc':unknownFileUrlListCtrl.row == 'Timestamp', 'sorting_desc':unknownFileUrlListCtrl.row == '-Timestamp'}" ng-click="unknownFileUrlListCtrl.order('Timestamp')">
+                <span ng-i18next="list.unknown_file_urls.columns.timestamp"></span>
+                <i class="fa" ng-class="{'fa-angle-up': unknownFileUrlListCtrl.sortcolumn=='Timestamp', 'fa-angle-down': unknownFileUrlListCtrl.sortcolumn=='-Timestamp'}"></i>
+            </th>
+            <th class="col-md-3" style="cursor: default;">
+            </th>
+            <th class="col-md-3" style="cursor: default;">
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="plain-data" ng-repeat="data in unknownFileUrlListCtrl.unknownFileUrls.Result">
+            <td>
+                <span ng-if="data.Url.length>150">
+                    <span ng-if="!more">{{data.Url|limitTo:150}}</span> 
+                    <span ng-if="more">{{data.Url}}</span> 
+                    <a ng-click="more=!more">
+                        <span ng-if="!more">more...</span>
+                        <span ng-if="more">less</span>
+                    </a>
+                </span> 
+                <span ng-if="data.Url.length<=150">
+                    {{data.Url}}
+                </span>
+            </td>
+            <td ng-bind="data.TimestampDisplay">
+            </td>  
+            <td>
+                <a href="/#/unknown_file_url/{{data.EntityID}}"><i class="fa fa-pencil"></i></a>
+            </td>
+            <td href="" ng-click="unknownFileUrlListCtrl.removeUnknownFileUrl(data)">
+                <a><i class="fa fa-times text-danger"></i></a>
+            </td>                        
+        </tr>  
+    </tbody>
+</table>
+
+<div class="pull-right" style="margin-right:10px;" ng-if="unknownFileUrlListCtrl.unknownFileUrls.Total>unknownFileUrlListCtrl.itemsPerPage">       
+    <pagination boundary-links="true" total-items="unknownFileUrlListCtrl.unknownFileUrls.Total" ng-model="unknownFileUrlListCtrl.currentPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="unknownFileUrlListCtrl.itemsPerPage" max-size="5" ng-change="unknownFileUrlListCtrl.getUnknownFileUrls()"></pagination>
+</div>
+</div>
+</div>
+</div>

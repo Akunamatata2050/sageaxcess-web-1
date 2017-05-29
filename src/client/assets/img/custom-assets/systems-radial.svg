@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="18.125" viewBox="0 0 17 18.125">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="systems-radial.svg" class="cls-1" d="M456,39.942h17v3.379H456V39.942ZM456,35h17v3.379H456V35Zm0,9.819h17v3.411H456V44.819Zm0,4.942h17V53.14H456V49.761Z" transform="translate(-456 -35)"/>
+</svg>

@@ -1,0 +1,121 @@
+<div id="systems-overview">
+	<div>
+		<label>
+			<input type="checkbox" ng-model="includeBroadcast"> <span>Include broadcast</span>
+		</label>
+	</div>
+	<div date-navigator ng-if="options" options="options" range="range" callback="reloadData" class="date-navigator"></div>
+	<div class="panel panel-default" style="overflow: auto;" ng-if="detailsChartDataReady">
+		<div class="panel-heading tall-heading" ng-class="{'no-border':options}">
+			<h2>
+				<span ng-if="options">Overview</span>
+				<span ng-if="!options">Loading...</span>
+			</h2>
+			<div ng-if="options" class="pull-right">
+				Office: 
+				<select name="Office" ng-model="officeId" ng-options="office.EntityID as office.Name for office in offices" ng-disabled="!chartDataReady">
+					<option value="">All</option>
+				</select>
+				<div class="chart-filters">
+					<div class="users">
+						<input search-input placeholder="Filter by Users" ng-model="filters.users">
+					</div>
+					<div class="systems">
+						<input search-input placeholder="Filter by Systems" ng-model="filters.systems">
+					</div>
+				</div>
+				<div class="chart-selector">
+					<i class="diagram-radial" ng-class="{active:diagramType=='radial'}" ng-click="setDiagramType('radial')"></i>
+					<i class="diagram-grid" ng-class="{active:diagramType=='grid'}" ng-click="setDiagramType('grid')"></i>
+				</div>
+			</div>
+		</div>
+		<!-- <div sa-timeline data="timeline"></div> -->
+		<div class="diagram-stat" ng-if="stat" ng-init="dropdownStat = {Users:{}, Systems:{}}">
+			<div class="sage-dropdown users" sage-dropdown data="{'key':'value'}" dropdown-focus="'[search-input]'" ng-click="dropdownStat.Users.Total = stat.Users.Total">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Users: {{stat.Users.Total.length}}
+				</a>
+				<div class="dropdown-menu arrow search-list" dropdown-menu>
+					<!-- <li><input type="text" class="search-input" ng-model="filterTotalUsers.name" style="width: auto"></li> -->
+					<input search-input ng-model="filterTotalUsers.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/users/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Users.Total | orderBy:'name' | filter:filterTotalUsers">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Users.Total| filter:filterTotalUsers).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+			<div class="sage-dropdown users" sage-dropdown dropdown-focus="'[search-input]'" ng-click="dropdownStat.Users.Active = stat.Users.Active">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Active: {{stat.Users.Active.length}}
+				</a>
+				<div class="dropdown-menu animated arrow search-list" dropdown-menu ng-click="$event.stopPropagation();">
+					<input search-input ng-model="filterActiveUsers.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/users/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Users.Active | orderBy:'name' | filter:filterActiveUsers">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Users.Active| filter:filterActiveUsers).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+			<div class="sage-dropdown users" sage-dropdown dropdown-focus="'[search-input]'" ng-click="dropdownStat.Users.Inactive = stat.Users.Inactive">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Inactive: {{stat.Users.Inactive.length}}
+				</a>
+				<div class="dropdown-menu animated arrow search-list" dropdown-menu ng-click="$event.stopPropagation();">
+					<input search-input ng-model="filterInactiveUsers.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/users/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Users.Inactive | orderBy:'name' | filter:filterInactiveUsers">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Users.Inactive| filter:filterInactiveUsers).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+
+			<div class="sage-dropdown systems" sage-dropdown dropdown-focus="'[search-input]'" ng-click="dropdownStat.Systems.Total = stat.Systems.Total">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Systems: {{stat.Systems.Total.length}}
+				</a>
+				<div class="dropdown-menu animated arrow search-list" dropdown-menu ng-click="$event.stopPropagation();">
+					<input search-input ng-model="filterTotalSystems.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/systems/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Systems.Total | orderBy:'name' | filter:filterTotalSystems">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Systems.Total| filter:filterTotalSystems).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+			<div class="sage-dropdown systems" sage-dropdown dropdown-focus="'[search-input]'" ng-click="dropdownStat.Systems.Active = stat.Systems.Active">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Active: {{stat.Systems.Active.length}}
+				</a>
+				<div class="dropdown-menu animated arrow search-list" dropdown-menu ng-click="$event.stopPropagation();">
+					<input search-input ng-model="filterActiveSystems.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/systems/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Systems.Active | orderBy:'name' | filter:filterActiveSystems">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Systems.Active| filter:filterActiveSystems).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+			<div class="sage-dropdown systems" sage-dropdown dropdown-focus="'[search-input]'" ng-click="dropdownStat.Systems.Inactive = stat.Systems.Inactive">
+				<a class="dropdown-toggle username dropdown-icon" dropdown-toggle>
+					Inactive: {{stat.Systems.Inactive.length}}
+				</a>
+				<div class="dropdown-menu animated arrow search-list" dropdown-menu ng-click="$event.stopPropagation();">
+					<input search-input ng-model="filterInactiveSystems.name">
+					<div class="body scrollbar-display">
+						<a ng-href="/#/systems/details/{{getEncodedUsername(item.name)}}" ng-repeat="item in dropdownStat.Systems.Inactive | orderBy:'name' | filter:filterInactiveSystems">{{item.name}}</a>
+						<p ng-if="(dropdownStat.Systems.Inactive| filter:filterInactiveSystems).length==0"> No results found </p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body" >
+			<div ng-if="chartDataReady && diagramType == 'grid'" systems-grid class="grid-diagram " data="overviewData" search-rows="filters.users" search-cols="filters.systems" stat-func="setStat(value)" include-broadcast="includeBroadcast" office-id="officeId" reload-data="loadActivityData(includeBroadcast,dataStartDate,dataEndDate, officeId)">
+			</div>
+			<div ng-if="chartDataReady && diagramType == 'radial'" systems-radial data="overviewData" class="radial-diagram" search-rows="filters.users" search-cols="filters.systems" stat-func="setStat(value)" include-broadcast="includeBroadcast" office-id="officeId" reload-data="loadActivityData(includeBroadcast,dataStartDate,dataEndDate, officeId)" style="overflow: auto;">
+			</div>
+			<div ng-if="!overviewData">
+				No data found.
+			</div>			
+		</div>
+	</div>
+	<div  ng-if="!detailsChartDataReady" process-lines></div>
+</div>

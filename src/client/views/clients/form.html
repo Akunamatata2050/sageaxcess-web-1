@@ -1,0 +1,9 @@
+<div class="page" ng-controller="ClientsCtrl as clientsCtrl">
+    <h2 ng-i18next="form.clients.title"></h2>
+    <form ng-if="!clientsCtrl.client.EntityID" name="clientForm" role="form" novalidate data-ng-submit="clientForm.$dirty=true;clientForm.$valid && clientsCtrl.save()">
+        <div ng-include="'views/clients/elements.html'">
+        </div>    
+    </form>
+
+    <div ng-if="clientsCtrl.client.EntityID" ng-include="'views/clients/elements.html'"></div>
+</div>

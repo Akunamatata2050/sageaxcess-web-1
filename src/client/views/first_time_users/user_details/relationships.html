@@ -1,0 +1,100 @@
+<!-- <ol class="breadcrumb">
+    <li><a href="#/systems">Security Insider</a></li>
+    <li class="active"><i class="user"></i>{{overviewData.Users[unitIndex]}}</li>
+</ol> -->
+
+<div class="systems-unit" ng-controller="UserRelationshipsController as vm">
+	
+	<div date-navigator ng-if="vm.options" options="vm.options" range="vm.range" callback="vm.reloadData" class="date-navigator" style="margin-bottom:30px"></div>
+
+	<!-- <div ng-show="!vm.chartDataReady">
+		Loading chart data ...
+	</div> -->
+
+	<div  ng-if="!vm.chartDataReady" process-lines></div>
+
+	<div class="panel">
+		<div class="panel-heading">
+			<h2>User Activity</h2>
+			<div class="chart-selector pull-right">
+				<i class="chart-area" ng-class="{active:vm.unitChartType=='area'}" ng-click="vm.unitChartType='area'"></i>
+				<i class="chart-bars" ng-class="{active:vm.unitChartType=='bars'}" ng-click="vm.unitChartType='bars'"></i>
+			</div>
+		</div>
+		<div class="panel-body nvd3-chart">
+			<div ng-if="vm.unitChartType=='area'">
+				<nvd3-stacked-area-chart
+				data="vm.unitData.Usage.data"
+				height="400"
+				showXAxis="true"
+				showYAxis="true"
+				tooltips="true"
+				interactive="true"
+				useInteractiveGuideline="true",
+				margin="0",
+				showLegend="false"
+				showControls="false"
+				offset="0"
+				toolTipContent="vm.nvd3.toolTipContentFunction()"
+				xAxisTickFormat="vm.nvd3.xAxisTickFormat()"
+				yAxisTickFormat="vm.nvd3.yAxisTickFormat()">
+				<svg style="height:400px"></svg>
+			</nvd3-stacked-area-chart>
+		</div>
+		<div ng-if="vm.unitChartType=='bars'">
+			<nvd3-multi-bar-chart
+			data="vm.unitData.Usage.data"
+			height="400"
+			showXAxis="true"
+			showYAxis="true"
+			tooltips="true"
+			interactive="true"
+			useInteractiveGuideline="true",
+			margin="0",
+			showLegend="false"
+			showControls="false"
+			offset="0"
+			stacked="true"
+			toolTipContent="vm.nvd3.toolTipContentFunction()"
+			xAxisTickFormat="vm.nvd3.xAxisTickFormat()"
+			yAxisTickFormat="vm.nvd3.yAxisTickFormat()">
+			<svg style="height:400px"></svg>
+		</nvd3-multi-bar-chart>
+	</div>
+</div>
+</div>
+<div class="panel">
+	<div class="panel-heading">
+		<h2>Used Systems <span class="details">{{vm.unitData.Usage.data.length}}</span></h2>
+		<div class="pull-right"><input class="search-input" placeholder="Filter by Name" ng-model="tableSearchText.key"></div>
+	</div>
+
+	<table ng-init="tableOrder='-avg'" class="sa-table">
+		<thead>
+			<th ng-click="tableOrder = tableOrder == 'key'?'-key':'key'"><span class="order" ng-class="{up:tableOrder == 'key', down:tableOrder == '-key'}">Name</span></th>
+			<th ng-click="tableOrder = tableOrder == 'avg'?'-avg':'avg'"><span class="order" ng-class="{up:tableOrder == 'avg', down:tableOrder == '-avg'}">Activity</span></th>
+			<th>
+				<div ng-style="{width:sparklineWidth + 'px'}">
+					<div class="pull-left">{{vm.unitData.dateStart.format('DD MMM YYYY')}}</div>
+					<div class="pull-right">{{vm.unitData.dateEnd.format('DD MMM YYYY')}}</div>
+				</div>
+			</th>
+			<th ng-click="tableOrder = tableOrder == 'avg'?'-avg':'avg'"><span class="order" ng-class="{up:tableOrder == 'avg', down:tableOrder == '-avg'}">Frequency</span></th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in vm.unitData.Usage.data | orderBy:tableOrder | filter:tableSearchText" ng-if="item.avg>0">
+				<td><!-- <a ng-href="#/systems/system/{{item.index}}"> -->{{item.key}}<!-- </a> --></td>
+				<td>
+					<div div-chart-bar value="vm.getSparklineValue(item.avg, vm.unitData.Usage.avgMax)" color="item.color"></div>
+				</td>
+				<td><div d3-sparkline data="item" max="vm.unitData.Usage.max" width="314" height="24"></div></td>
+				<td>{{item.avg | number : 1}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+
+
+</div>

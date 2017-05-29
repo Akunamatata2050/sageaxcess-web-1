@@ -1,0 +1,44 @@
+<!-- <h2>
+	<ol class="breadcrumb">
+	    <li><a href="#/systems">Security Insider</a></li>
+	    <li class="active"><i class="system"></i>{{overviewData.Systems[unitIndex]}}</li>
+	</ol>
+</h2> -->
+
+<div class="systems-unit" ng-controller="SystemDetailsController as vm">
+	<div date-navigator ng-if="vm.options" options="vm.options" range="vm.range" callback="vm.reloadData" class="date-navigator" style="margin-bottom:30px"></div>
+
+	<div  ng-if="!vm.chartDataReady" process-lines></div>
+
+	<div class="panel">
+		<div class="panel-heading tall-heading">
+			<h2>Used by Users <span class="details">{{(vm.unitData.Usage.data|filter:tableSearchText).length}}</span></h2>
+			<div class="pull-right"><input search-input ng-model="tableSearchText" placeholder="Filter by Name"></div>
+		</div>
+		<div class="panel-body">
+			<table ng-init="tableOrder='-avg'" class="sa-table">
+				<thead>
+					<th ng-click="tableOrder = tableOrder == 'key'?'-key':'key'"><span class="order" ng-class="{up:tableOrder == 'key', down:tableOrder == '-key'}">Name</span></th>
+					<th ng-click="tableOrder = tableOrder == 'avg'?'-avg':'avg'"><span class="order" ng-class="{up:tableOrder == 'avg', down:tableOrder == '-avg'}">Activity</span></th>
+					<th>
+						<div ng-style="{width:sparklineWidth + 'px'}">
+							<div class="pull-left">{{vm.unitData.dateStart.format('DD MMM YYYY')}}</div>
+							<div class="pull-right">{{vm.unitData.dateEnd.format('DD MMM YYYY')}}</div>
+						</div>
+					</th>
+					<th ng-click="tableOrder = tableOrder == 'FrequencyAvg'?'-FrequencyAvg':'FrequencyAvg'"><span class="order" ng-class="{up:tableOrder == 'FrequencyAvg', down:tableOrder == '-FrequencyAvg'}">Frequency</span></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in vm.unitData.Usage.data | orderBy:tableOrder | filter:tableSearchText">
+						<td><a ng-href="#/users/details/{{vm.getEncodedUsername(item.key)}}">{{item.key}}</a></td>
+						<td>
+							<div div-chart-bar value="vm.getSparklineValue(item.avg, vm.unitData.Usage.avgMax)" color="item.color"></div>
+						</td>
+						<td><div d3-sparkline data="item" max="vm.unitData.Usage.max" width="314" height="24"></div></td>
+						<td>{{item.avg | number : 1}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

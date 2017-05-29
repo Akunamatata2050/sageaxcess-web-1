@@ -1,0 +1,73 @@
+<div class="page" id="keyList" style="margin:10px;">
+    <h4>API Keys</h4>
+    <div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered no-border no-margin">     
+                <thead class="left-align">
+                    <tr>                                     
+                        <th class="sorting" ng-class="{'sorting_asc':organizationCtrl.row == 'name', 'sorting_desc':organizationCtrl.row == '-name'}" ng-click="organizationCtrl.order('name')">                        
+                            <span ng-i18next="list.key.columns.name"></span>
+                        </th>
+                        <th class="sorting" ng-class="{'sorting_asc':organizationCtrl.row == 'description', 'sorting_desc':organizationCtrl.row == '-description'}" ng-click="organizationCtrl.order('description')">
+                            <span ng-i18next="list.key.columns.description"></span>
+                        </th>
+                        <th class="sorting" ng-class="{'sorting_asc':organizationCtrl.row == 'apikey', 'sorting_desc':organizationCtrl.row == '-apikey'}" ng-click="organizationCtrl.order('apikey')">
+                            <span ng-i18next="list.key.columns.apikey"></span>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>         
+
+                    <tr class="plain-data" ng-repeat="apiKey in organizationCtrl.apiKeys" >
+
+                        <td class="col-sm-3">
+                            <input type="text" class="form-control" ng-model="apiKey.Name" ng-maxlength="50" ng-if="!apiKey.EntityID">
+                            <p class="form-control-static" ng-bind="apiKey.Name" ng-if="apiKey.EntityID" style="white-space:pre-wrap;display:block;word-break:break-all;word-wrap:break-word"></p>
+                        </td>
+                        <td class="col-sm-2">
+                            <textarea class="form-control" rows="5" ng-model="apiKey.Description" ng-if="!apiKey.EntityID" style="resize:vertical">
+                            </textarea>
+                            <span ng-if="apiKey.EntityID && apiKey.Description.length>25" ng-if="">
+                                <span ng-if="!more">{{apiKey.Description|limitTo:25}}</span> 
+                                <span ng-if="more" style="white-space:pre-wrap;display:block;word-break:break-all;word-wrap:break-word">{{apiKey.Description}}</span>
+                                <a ng-click="more=!more">
+                                    <span ng-if="!more">more...</span>
+                                    <span ng-if="more">less</span>
+                                </a>
+                            </span> 
+                            <p class="form-control-static" ng-if="apiKey.EntityID && apiKey.Description.length<=25">
+                                {{apiKey.Description}}
+                            </p> 
+                        </td>
+                        <td class="col-sm-5">
+                            <p ng-if="!apiKey.Key" class="form-control-static col-md-11">Auto generated</p>
+                            <p ng-if="apiKey.Key" class="form-control-static col-md-11 wrapword" ng-bind="apiKey.Key"></p> 
+                            <a ng-if="organizationCtrl.supportsClipboardApi && apiKey.Key" class="col-md-1" ng-mouseover="organizationCtrl.resetTooltip($index)" ng-click="organizationCtrl.populateTooltip($index)" tooltip="{{organizationCtrl.getTooltip($index)}}" ngclipboard data-clipboard-text="{{apiKey.Key}}" tooltip-placement="right"><i class="fa fa-clipboard" style="margin-top:12px;"></i></a>
+                        </td>
+                        <td class="col-sm-1" style="text-align:center;">
+                            <p class="form-control-static">
+                                <a href="" tooltip="Show Run Command" ng-if="apiKey.EntityID" ng-click="organizationCtrl.showApiKeyCommand(apiKey)" tooltip-placement="right">
+                                    <i class="fa fa-terminal"></i>
+                                </a>
+                            </p>
+                        </td>
+                        <td class="col-sm-1" style="text-align:center;">
+                            <button class="btn add-btn" ng-if="!apiKey.EntityID" ng-click="apiKey.Name && organizationCtrl.addApiKey(apiKey)" ng-disabled="organizationCtrl.saving || !apiKey.Name">
+                                <i class="fa fa-check"></i>
+                            </button> 
+                            <p class="form-control-static">
+                                <a href="" ng-if="apiKey.EntityID" ng-click="organizationCtrl.removeApiKey(apiKey)">
+                                    <i class="fa fa-times text-danger"></i>
+                                </a>
+                            </p>
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

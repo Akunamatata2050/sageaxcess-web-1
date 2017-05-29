@@ -1,0 +1,48 @@
+<div class="page" ng-controller="EditUnknownFileUrlCtrl as editUnknownFileUrlCtrl">
+	<h2 ng-i18next="list.unknown_file_urls.title"></h2>
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+		<form name="unknownFileUrlForm" role="form" novalidate ng-submit="unknownFileUrlForm.$valid && editUnknownFileUrlCtrl.save()" class="form-horizontal row-border">
+			<div style="margin:30px;">
+				<alert ng-repeat="alert in editUnknownFileUrlCtrl.unknownFileUrlAlerts" type="{{alert.type}}" close="editUnknownFileUrlCtrl.closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.unknown_file_urls.fields.url"></span>
+					</label>
+					<div class="col-sm-4">
+						<textarea rows="4" cols="50" style="max-width: 100%; max-height: 100%;" name="inputurl" ng-model="editUnknownFileUrlCtrl.unknownFileUrl.Url"  class="form-control" required></textarea>
+					</div>
+				</div>
+
+				<!-- <div class="form-group" ng-class="{'has-error': unknownFileUrlForm.inputtimestamp.$dirty && unknownFileUrlForm.inputtimestamp.$invalid}">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.unknown_file_urls.fields.timestamp"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="number" name="inputtimestamp" ng-model="editUnknownFileUrlCtrl.unknown_file_urls.Timestamp"  class="form-control" required>
+					</div>
+				</div>	 -->
+
+				
+			</div>
+			<div class="panel-footer">    
+				<button type="submit" class="btn btn-primary"  ng-show="editUnknownFileUrlCtrl.unknownFileUrl && !editUnknownFileUrlCtrl.unknownFileUrl.EntityID" ng-disabled="unknownFileUrlForm.$invalid || saving || editUnknownFileUrlCtrl.saving">
+					<span ng-i18next="button.create"></span>
+				</button>   
+
+				<button type="submit" class="btn btn-primary" ng-show="editUnknownFileUrlCtrl.unknownFileUrl && editUnknownFileUrlCtrl.unknownFileUrl.EntityID" ng-disabled="saving || unknownFileUrlForm.$invalid">
+					<span ng-i18next="button.done"></span>
+				</button> 
+
+				<a href="#/unknown_file_url" class="btn btn-default" ng-show="editUnknownFileUrlCtrl.unknownFileUrl && !editUnknownFileUrlCtrl.unknownFileUrl.EntityID">
+					<span ng-i18next="button.cancel"></span> 
+				</a>
+				<a class="btn btn-danger" ng-click="editUnknownFileUrlCtrl.unknownFileUrl && editUnknownFileUrlCtrl.removeUnknownFileUrl()" ng-show="editUnknownFileUrlCtrl.unknownFileUrl.EntityID && editUnknownFileUrlCtrl.unknownFileUrl.EntityID !== loggedInunknownFileUrl.unknownFileUrlID">
+					<span ng-i18next="button.remove"></span>
+				</a>
+			</div>
+		</form>
+	</div>
+</div>

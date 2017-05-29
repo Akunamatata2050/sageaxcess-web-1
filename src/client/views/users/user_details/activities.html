@@ -1,0 +1,42 @@
+<div class="panel activities">
+  <div class="panel-heading tall-heading">
+    <h2>Activities</h2>
+    <div class="pull-right"><input search-input class="small-input" ng-model="search.activities"></div>
+  </div>
+  <div class="panel-body">
+    <div ng-if="loading.activities" process-lines></div>
+    <div ng-if="!loading.activities">
+      <table sort-table sort-by="sortOptions.activities">
+        <thead>
+        <tr>
+          <th><span key="EventDate">EventDate</span></th>
+          <th><span key="Resource">Resource</span></th>
+          <th><span key="Event">Event</span></th>
+          <th><span key="Object">Object</span></th>
+          <th><span key="Location">Location</span></th>
+          <th><span key="IP">IP Address</span></th>
+          <th><span key="RiskScorePercent">Risk Score</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr dir-paginate="activityItem in data.Activities | orderBy : sortOptions.activities.key : sortOptions.activities.reverse | filter:search.activities | itemsPerPage: sortOptions.activities.itemsPerPage" ng-click="route('/activity')">
+          <td>{{activityItem.EventDate|date:' dd MMM yyyy hh:mma'}}</td>
+          <td>{{activityItem.Resource}}</td>
+          <td>{{activityItem.Event}}</td>
+          <td>{{activityItem.Object}}</td>
+          <td>{{activityItem.Location}}</td>
+          <td>{{activityItem.IP}}</td>
+          <td>{{activityItem.RiskScorePercent}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="clearfix" ng-if="data.Activities.length > 10">
+      <div class="pull-right pagination-wrapper">
+        <dir-pagination-controls></dir-pagination-controls>
+        <span class="items-per-page" ng-if="sortOptions.activities.itemsPerPage === 10" ng-click="sortOptions.activities.itemsPerPage = 50">view 50</span>
+        <span class="items-per-page" ng-if="sortOptions.activities.itemsPerPage === 50" ng-click="sortOptions.activities.itemsPerPage = 10">view 10</span>
+      </div>
+    </div>
+  </div>
+</div>

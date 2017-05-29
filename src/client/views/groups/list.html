@@ -1,0 +1,94 @@
+<div class="page" id="groups">
+    <!-- <h2 ng-i18next="list.groups.title" class="no-border no-margin"></h2> -->
+    <div class="panel panel-default">
+        
+        <div class="body">
+            <!-- <div ng-if="!vm.groupsDetails" process-lines></div> -->
+            <div ng-if="!vm.loadingData && !vm.groupsDetails">
+                No data found.
+            </div>  
+            <div ng-if="vm.loadingData" process-lines>
+            </div>
+            <div ng-if="vm.groupsDetails" class="stat-panel">
+                <div class="row">
+                    <div class="cell">
+                        <span class="value">{{vm.statistics.Total.length}}</span>
+                    </div>
+                     <div class="cell">
+                        <div radial-chart value="vm.statistics.HighRisk.length / vm.statistics.Total.length" radius="42" class="high-risk"></div>
+                    </div>
+                    <div class="cell">
+                        <div radial-chart value="vm.statistics.Active.length / vm.statistics.Total.length" radius="42" class="active"></div>
+                    </div>
+                    <div class="cell">
+                        <div radial-chart value="vm.statistics.AnomaliesValue" radius="42" class="anomalies"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="cell">
+                        <span>Total users</span>
+                    </div>
+                    <div class="cell">
+                        <span class="sage-dropdown dropdown-toggle dropdown-icon" sage-dropdown dropdown-toggle dropdown-focus="'[search-input]'">
+                            <b>{{vm.statistics.HighRisk.length}}</b> - <span>High risk {{vm.statistics.HighRisk.length == 1 ? 'user' : 'users'}}</span>
+                            <div class="dropdown-menu animated search-list" dropdown-menu ng-click="$event.stopPropagation();">
+                                <input search-input ng-model="statHRFilter">
+                                <div class="body">
+                                    <a ng-href="#/users/details/{{item.Id}}" ng-repeat="item in vm.statistics.HighRisk | orderBy:'Id' | filter:statHRFilter" ng-class={risk:item.HighRisk}>{{item.Id}}</a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="cell">
+                        <span class="sage-dropdown dropdown-toggle dropdown-icon" sage-dropdown dropdown-toggle dropdown-focus="'[search-input]'">
+                            <b>{{vm.statistics.Active.length / vm.statistics.Total.length * 100 | number:0}}%</b> - <span>Active users</span>
+                            <div class="dropdown-menu animated search-list" dropdown-menu ng-click="$event.stopPropagation();">
+                                <input search-input ng-model="statActiveFilter">
+                                <div class="body">
+                                    <a ng-href="#/users/details/{{item.Id}}" ng-repeat="item in vm.statistics.Active | orderBy:'Id' | filter:statActiveFilter" ng-class={risk:item.HighRisk}>{{item.Id}}</a>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="cell">
+                        <span>
+                            <b>{{vm.statistics.AnomaliesValue * 100 | number:0}}%</b> - <span>Anomalies</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="items-wrapper"> 
+                <div class="group-item" ng-class="{'edit-mode':group.edit}" ng-repeat="group in vm.statistics.Groups | orderBy:'Name'" ng-style="{'background-color':vm.getGroupColor(group.HighRisk.length, vm.statistics.MaxHighRisk)}" >
+                    <div class="normal">
+                        <div class="header">
+                            <div class="name" ng-click="group.edit = true"><i class="fa fa-edit"></i> {{group.NewName}}</div>
+                        </div>
+                        <div class="dropdown-toggle sage-dropdown" sage-dropdown dropdown-toggle dropdown-focus="'[search-input]'">
+                            <div class="counter">
+                                <span>{{group.Items.length}}</span>
+                            </div>
+                            <div class="dropdown-menu animated search-list groups-menu" dropdown-menu>
+                                <div class="info">
+                                    <div><i class="anomalies"></i>{{group.AnomaliesValue * 100 | number:0}}% anomalies</div>
+                                    <div><i class="active-users"></i>{{group.Active.length / group.Items.length * 100 | number:0}}% active users</div>
+                                    <div><i class="created"></i>Created {{group.Created}}</div>
+                                </div>
+                                <input search-input ng-model="filterInactiveItems.Id">
+                                <div class="body">
+                                    <a ng-href="#/users/details/{{item.Id}}" ng-repeat="item in group.Items | orderBy:'Id' | filter:filterInactiveItems" ng-class={risk:item.HighRisk}>{{item.Id}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">{{group.HighRisk.length}} high risk {{group.HighRisk.length == 1 ? 'user' : 'users'}}</div>
+                    </div>
+                    <form class="edit" name="groupForm" ng-submit="vm.saveGroupName(group, $event);">
+                        <input ng-model="group.NewName" name = "inputName" ng-class="{'has-error': group.NewName.length<1 && groupForm.inputName.$invalid}" ng-click="$event.preventDefault();$event.stopPropagation();" class="form-control" required>
+                        <a  class="btn btn-sm" ng-click="vm.saveGroupName(group, $event);" ng-style="{'background-color':vm.colors($index / (vm.statistics.Groups.length - 1))}" ng-disabled = "group.NewName.length<1 || groupForm.$invalid">
+                            <i class="fa fa-check"></i>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

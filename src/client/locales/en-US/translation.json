@@ -1,0 +1,362 @@
+{
+	"logout": "Log out",
+	"header_menu": {
+		"profile": "Profile",
+		"change_password": "Change Password",
+		"logout": "Log out"
+	},
+	"menu": {
+		"dashboard": "Dashboard",		
+		"admin": "Admin",
+		"key": "Key",
+		"unknown_file_paths": "Unknown_file_paths",
+		"unknown_file_urls": "Unknown_file_urls",	
+		"path_expression": "Path_Expressions",
+		"groups":"Groups",	
+		"users": "Users",
+		"distributors": "Distributors",
+		"brands": "Brands",
+		"purchase_orders": "Purchase Orders",
+		"projections": "Projections",
+		"download":"download",
+		"data":"data"
+	},
+
+	"title": {
+		"dashboard": "Dashboard",
+		"add-edit": "Add/Edit"
+	},
+
+	"list": {
+		"library": {
+			"title": "Library"
+		},
+		"diagram": {
+			"title": "Diagram"
+		},
+		"users": {
+			"title": "Users",
+			
+			"columns": {
+				"organization": "Organization",
+				"first_name": "First Name",
+				"last_name": "Last Name",
+				"email": "Email",
+				"phone": "Phone",
+				"active": "Active",
+				"name" : "Name",
+				"permission" : "Permission"
+			}
+		},
+		"organizations": {
+			"title": "Organizations",
+			"columns": {
+				"name": "Name",
+				"offices": "Offices",
+				"dollar_size_unit": "Dollar Size Unit",
+				"weekly_report_emails": "Weekly Report Emails",
+				"delivery_capability": "Delivery Capability"
+			}
+		},
+		"offices": {
+			"title": "Offices",
+			"columns": {
+				"name": "Name",
+				"city": "City",
+				"state": "State",
+				"country": "Country"
+			}
+		},		
+		"departments": {
+			"title": "Departments",
+			"columns": {
+				"name": "Name"
+			}
+		},
+		"networks": {
+			"title": "Networks",
+			"columns": {
+				"network_address":"Network Address", 
+				"block_size":"Block Size (Or) Subnet Mask",
+				"subnet_mask": "Subnet Mask", 
+				"office_fields":"Office",
+				"broadcast_address":"Broadcast Address" ,
+				"total_hosts": "Total Hosts"
+			}
+		},
+		"clients": {
+			"title": "Clients",
+			"columns": {
+				"name": "Name"
+			}
+		},
+		"key": {
+			"title":"Key",
+			"columns":{
+				"name":"Name",
+				"description":"Description",
+				"apikey":"Key"
+			}
+		},
+		"key_pair": {
+			"title":"Key Pair",
+			"columns":{
+				"name":"Name",
+				"key":"Public Key",
+				"value":"Private Key",
+				"timestamp":"Timestamp"
+			}
+		},
+		"unknown_file_paths" : {
+			"title":"Unknown file paths",
+			"columns":{
+				"path":"Path",
+				"timestamp":"Timestamp"	 		
+			}
+		},
+		"unknown_file_urls" : {
+			"title":"Unknown File URLs",
+			"columns":{
+				"url":"URL",
+				"timestamp":"Timestamp"	 		
+			}
+		},"groups" : {
+			"title":"Groups"
+		},
+		"path_expressions" : {
+			"title": "Path Expressions",
+			"columns": {
+				"expression": "Expression",
+				"category":"Category"
+			}
+		},
+		"url_expressions" : {
+			"title": "URL Expressions",
+			"columns": {
+				"expression": "Expression",
+				"category":"Category"
+			}
+		},
+		"data" : {
+			"title": "Aggregators",
+			"columns": {
+				"uniqueid": "UniqueID",
+				"description":"Description"
+			}
+		}
+	},
+	
+	
+	"form": {
+		"hint_1": "Fields marked with ",
+		"hint_2": "are required.",
+		"all_required": "All fields are required.",
+		"users": {
+			"title": "Add/Edit User",
+			"fields": {
+				"organization": "Organization",
+				"first_name": "First Name",
+				"last_name": "Last Name",
+				"email": "Email",
+				"phone": "Phone",
+				"password": "Password",
+				"permission": "Permission",
+				"send_login_email": "Send login email"
+			},
+			"error_messages": {
+				"first_name_required": "First Name is required",
+				"last_name_required": "Last Name is required",
+				"email_required": "Valid Email is required"
+			}
+		},
+		"key": {
+			"title": "Key",
+			"fields": {
+				"name":"Name",
+				"description":"Description",
+				"apikey": "ApiKey"			
+			},
+			"error_messages": {
+				"name": "Name is required",
+				"description": "Description is required",
+				"apikey": "ApiKey is required"
+			}
+		},
+		"unknown_file_paths" : {
+			"title":"Unknown file paths",
+			"fields":{
+				"path":"Path",
+				"timestamp":"Timestamp"	 		
+			},
+			"error_messages": {
+				"path": "Path is required",
+				"timestamp": "Timestamp is required"
+			}
+		},
+		"unknown_file_urls" : {
+			"title":"Unknown File URLs",
+			"fields":{
+				"url":"URL",
+				"timestamp":"Timestamp"	 		
+			},
+			"error_messages": {
+				"url": "URL is required",
+				"timestamp": "Timestamp is required"
+			}
+		},
+		"path_expressions" : {
+			"title":"Path Expression",
+			"fields":{
+				"expression":"Expression",
+				"category":"Category"	 		
+			},
+			"error_messages": {
+				"expression": "Expression is required",
+				"timestamp": "Timestamp is required"
+			}
+		},
+		"url_expressions" : {
+			"title":"URL Expression",
+			"fields":{
+				"expression":"Expression",
+				"category":"Category"	 		
+			},
+			"error_messages": {
+				"expression": "Expression is required",
+				"timestamp": "Timestamp is required"
+			}
+		},
+		"profile": {
+			"fields": {
+				"email": "Username/Email",
+				"first_name": "First Name",
+				"last_name": "Last Name",
+				"password": "Password",
+				"department": "Department",
+				"office": "Office"
+			},
+			"error_messages": {
+				"email_required": "Email is required",
+				"username_email_required":"Username/Email is required",
+				"first_name_required": "First Name is required",
+				"last_name_required": "Last Name is required",
+				"password_required": "Password is required",
+				"invalid_current_password_msg": "Please provide valid password"
+			}
+		},
+		"change_password": {
+			"fields": {
+				"current_password": "Current Password",
+				"new_password": "New Password",
+				"cnfrm_password": "Confirm Password"
+			},
+			"error_messages": {
+				"current_password_required": "Current Password is required.",
+				"new_password_required": "New Password is required.",
+				"new_password_validation_msg": "Requires atleast one lower case letter, one upper case letter, one digit and shouldnt contain any spaces. Password must be atleast 8 characters in length.",
+				"cnfrm_password_required": "Confirm Password is required.",
+				"password_mismatch_msg": "Error ! New password and confirm password fields must match.",
+				"invalid_current_password_msg": "Error ! Please provide valid current password.",
+				"password_policy": "Error! Password must be atleast 8 characters in length and must contain atleast one uppercase character, one lowercase character, one number and one of the special characters !@#$%^&*",
+				"password_mismatch":"Error! Current Password and New Password are same"
+			}
+		},
+		"organizations": {
+			"title": "Add/Edit Organization",
+			"fields": {
+				"name": "Name",
+				"offices": "Offices",
+				"dollar_size_unit": "Dollar Size Unit",
+				"weekly_report_emails": "Weekly Report Emails",
+				"delivery_capability": "Delivery Capability"
+			}
+		},
+		"offices": {
+			"title": "Offices",
+			"fields": {
+				"name": "Name",
+				"city": "City",
+				"state": "State",
+				"country": "Country",
+				"street1": "Street 1",
+				"street2": "Street 2",
+				"street3": "Street 3",
+				"postalcode": "Postal Code",
+				"latitude": "Latitude",
+				"longitude": "Longitude"
+			}
+		},
+		"departments": {
+			"title": "Departments",
+			"fields": {
+				"name": "Name"
+			}
+		},
+		"upload_files": {
+			"fields": {
+				"select_project": "Choose where to upload file(s)",
+				"tags": "Tags"
+			}
+		},
+		"invite_user": {
+			"fields": {
+				"email": "Email",
+				"permission": "Permission",
+				"note" : "Note"
+			}
+		},
+		"org_user": {
+			"title": "User details",
+			"fields": {
+				"name": "Name",
+				"permission": "Permission",
+				"surname": "Surname",
+				"email" : "Email",
+				"title" : "Title",
+				"phone" : "Phone",
+				"url" : "Url"
+			}
+		},
+		"clients": {
+			"title" : "Add/Edit Client",
+			"fields":{
+				"name" : "Name"
+			}
+		}
+	},
+
+	"button": {
+		"add": "Add",
+		"edit": "Edit",
+		"delete": "Delete",
+		"remove": "Remove",
+		"save": "Save",
+		"cancel": "Cancel",
+		"done": "Done",
+		"create": "Create",
+		"send_invite" : "Send Invitation",
+		"ok": "Ok",
+		"export":"Export",
+		"download":"Download"
+	},
+
+	"label": {
+		"active": "Active",
+		"inactive": "InActive"
+	},
+
+	"modal": {
+		"my_profile": {
+			"title": "My Profile"
+		},
+		"change_password": {
+			"title": "Change Password"
+		},
+		"upload_files": {
+			"title": "Upload Files"
+		},
+		"user_invitation": {
+			"title": "Send Invite for"
+		}
+	}
+}

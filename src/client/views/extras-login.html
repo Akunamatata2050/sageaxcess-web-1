@@ -1,0 +1,47 @@
+<div id="login-screen" class="start-screen">
+	<div class="container form" id="login-form" ng-controller="LoginCtrl as loginCtrl">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form method="post" class="form-horizontal" id="validate-form" name="loginForm" ng-if="!loginCtrl.passwordResetTokenExpired" novalidate>
+					<alert ng-repeat="alert in loginCtrl.alerts" type="{{alert.type}}" close="loginCtrl.closeAlert($index)">{{alert.msg}}</alert>
+					<div class="form-group mb-md" ng-class="{'has-error': loginForm.username.$dirty && loginForm.username.$invalid}">
+						<div class="col-xs-12">
+							<input type="text" class="form-control" placeholder="Username" name="username" placeholder="At least 6 characters" ng-model="loginCtrl.data.username" required>
+						</div>
+					</div>
+
+					<div class="form-group mb-lg" ng-class="{'has-error': loginForm.passwd.$dirty && loginForm.passwd.$invalid}">
+						<div class="col-xs-12">
+							<input type="password" class="form-control" id="exampleInputPassword1" name="passwd" placeholder="Password" ng-model="loginCtrl.data.password" required>
+						</div>
+					</div>
+
+					<div class="form-group mb-lg">
+						<div class="col-xs-12">
+							<div class="pull-left remember-me">
+								<label>
+									<input type="checkbox" style="vertical-align:middle;" ng-model="loginCtrl.data.rememberMe" />
+									Remember me
+								</label>
+							</div>
+							<a href="#/pages/forgot-password" class="pull-right">Forgot password?</a>
+						</div>								
+					</div>
+
+					<div class="submit-button-wrapper mb-lg">
+						<button type="submit" class="btn btn-primary" ng-click="loginCtrl.login($event, loginForm)" ng-disabled="loginCtrl.saving">Login</button>
+					</div>
+
+					<div class="login-extras">
+						<a href="#/pages/signup">Not registered yet? Sign up <i class="fa fa-angle-right"></i></a>
+					</div>
+				</form>
+				<div class="confirmation" ng-show="loginCtrl.passwordResetTokenExpired">
+					<div class="info alert alert-warning">
+						Password reset token expired. <a href="#/pages/forgot-password"> Reset your password again.</a>
+					</div>						
+				</div>
+			</div>					
+		</div>
+	</div>
+</div>

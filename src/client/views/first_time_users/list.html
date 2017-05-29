@@ -1,0 +1,51 @@
+<div class="page" ng-controller="FirstTimeUsersCtrl as usersCtrl" id="usersList">
+    <!-- <h2 ng-i18next="list.users.title"></h2> -->
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered no-border no-margin ">
+                <thead>
+                    <tr class="left-align">
+                        <th>
+                            <span ng-i18next="list.users.columns.first_name"></span>
+                        </th>
+                        <th>
+                            <span ng-i18next="list.users.columns.last_name"></span>
+                        </th>
+                        <th>
+                            <span>Last Login Time</span>
+                        </th>
+                        <th>
+                          <span>Location</span>
+                        </th>
+                        <th>
+                            <span>Last Login IP</span>
+                        </th>
+                        <!--
+                        <th>
+                            <span ng-i18next="list.users.columns.active"></span>
+                        </th>
+                    -->
+                </tr>
+            </thead>
+            <tbody class="clickable-table">
+                <tr class="plain-data" ng-repeat="user in usersCtrl.users" ng-class="{'highlight-change': user.Changed, 'active': usersCtrl.selectedEntity.EntityID==user.EntityID}" ng-click="usersCtrl.selectRow(user)">
+                    <td>
+                        <span  ng-bind="user.FirstName">
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-bind="user.LastName"></span>
+                    </td>
+                    <td ng-bind="user.LastLoginTime|date:'MM/dd/yyyy hh:mm:ss'">
+                    </td>
+                    <td>
+                      <span ng-bind="user.Location"></span>
+                    </td>
+                    <td ng-bind="user.LastLoginIpAddress">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

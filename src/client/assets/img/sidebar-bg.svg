@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b1619;
+      }
+
+      .cls-2 {
+        fill: #241f22;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect width="50" height="50" class="cls-1"/>
+    <path d="M0.000,0.000 L50.001,0.000 L0.000,50.001 L0.000,0.000 Z" class="cls-2"/>
+  </g>
+</svg>

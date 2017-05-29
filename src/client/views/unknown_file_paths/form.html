@@ -1,0 +1,55 @@
+<div class="page" ng-controller="EditUnknownFilePathCtrl as editUnknownFilePathCtrl">
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+		<form name="unknownFilePathForm" role="form" novalidate ng-submit="unknownFilePathForm.$valid && editUnknownFilePathCtrl.save()" class="form-horizontal row-border">
+			<div style="margin:30px;">
+				<alert ng-repeat="alert in editUnknownFilePathCtrl.unknownFilePathAlerts" type="{{alert.type}}" close="editUnknownFilePathCtrl.closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.unknown_file_paths.fields.path"></span>
+					</label>
+					<div class="col-sm-4">
+						<textarea style="max-width: 100%; max-height: 100%;" rows="4" cols="50" name="inputpath" ng-model="editUnknownFilePathCtrl.unknownFilePath.Path"  class="form-control" required></textarea>
+					</div>
+				</div>
+
+				<!-- <div class="form-group" ng-class="{'has-error': unknownFilePathForm.inputtimestamp.$dirty && unknownFilePathForm.inputtimestamp.$invalid}">
+					<label class="control-label col-sm-2">
+						<span ng-i18next="form.unknown_file_paths.fields.timestamp"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="number" name="inputLastName" ng-model="editUnknownFilePathCtrl.unknown_file_paths.LastName"  class="form-control" required>
+					</div>
+				</div> -->	
+
+				
+			</div>
+			<div class="panel-footer">    
+				<button type="submit" class="btn btn-primary" ng-show="editUnknownFilePathCtrl.unknownFilePath && !editUnknownFilePathCtrl.unknownFilePath.EntityID" ng-disabled="unknownFilePathForm.$invalid || saving || editUnknownFilePathCtrl.saving">
+					<span ng-i18next="button.create"></span>
+				</button>   
+
+				<button type="submit" class="btn btn-primary" ng-show="editUnknownFilePathCtrl.unknownFilePath && editUnknownFilePathCtrl.unknownFilePath.EntityID" ng-disabled="saving || unknownFilePathForm.$invalid">
+					<span ng-i18next="button.done"></span>
+				</button> 
+
+				<a href="#/unknown_file_paths" class="btn btn-default" ng-show="editUnknownFilePathCtrl.unknownFilePath && !editUnknownFilePathCtrl.unknownFilePath.EntityID">
+					<span ng-i18next="button.cancel"></span> 
+				</a>
+
+				
+
+					<a class="btn btn-danger" ng-click="editUnknownFilePathCtrl.unknownFilePath && editUnknownFilePathCtrl.removeUnknownFilePath()" ng-show="editUnknownFilePathCtrl.unknownFilePath && editUnknownFilePathCtrl.unknownFilePath.EntityID">
+						<span ng-i18next="button.remove"></span>
+					</a>
+
+
+				<!-- <a class="btn btn-danger" ng-click="editUnknownFilePathCtrl.unknownFilePath && editUnknownFilePathCtrl.removeUnknownFilePath()" ng-if="editUnknownFilePathCtrl.unknownFilePath.EntityID && editUnknownFilePathCtrl.unknownFilePath.EntityID !== loggedInunknownFilePath.unknownFilePathAccountID">
+					<span ng-i18next="button.remove"></span>
+				</a> -->
+			</div>
+		</form>
+	</div>
+</div>

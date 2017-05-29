@@ -1,0 +1,72 @@
+<div class="page" ng-controller="PathExpressionsCtrl as pathExpressionsCtrl" id="pathExpressionsList">
+    <!-- <h2 ng-i18next="list.path_expressions.title"></h2> -->
+    <a class="btn add-btn" href="#/path_expressions/new" ng-i18next="button.add"></a>
+    <a class="btn add-btn" href="#/path_expressions/{{pathExpressionsCtrl.selectedExpression.EntityID}}" ng-i18next="button.edit" ng-disabled="!pathExpressionsCtrl.selectedExpression"></a>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <div class="panel-heading  display-table">
+                <div class="col-md-6">
+                   &nbsp;
+               </div>
+               <div class="col-md-6 pull-right" style="margin-top:8px;">
+                <form class="full-text-input inline">
+                    <input type="text"
+                    placeholder="Filter by Expression or Category"
+                    class="form-control"
+                    ng-model="pathExpressionsCtrl.searchKeywords" ng-model-options="{debounce: {'default': 300} }" size="57">
+                </form>
+            </div>
+        </div>
+        
+            <table class="table table-striped table-bordered no-border no-margin clickable-table" >       
+                <thead class="left-align">
+                    <tr>
+                        <th class="col-md-8" ng-class="{'sorting_asc':pathExpressionsCtrl.row == 'Expression', 'sorting_desc':pathExpressionsCtrl.row == '-Expression'}" ng-click="pathExpressionsCtrl.order('Expression')">
+                            <span ng-i18next="list.path_expressions.columns.expression"></span>                        
+                            <i class="fa" ng-class="{'fa-angle-up': pathExpressionsCtrl.sortcolumn=='Expression', 'fa-angle-down': pathExpressionsCtrl.sortcolumn=='-Expression'}"></i>
+                        </th>
+                        <th class="col-md-4" ng-class="{'sorting_asc':pathExpressionsCtrl.row == 'Category', 'sorting_desc':pathExpressionsCtrl.row == '-Category'}" ng-click="pathExpressionsCtrl.order('Category')">
+                            <span ng-i18next="list.path_expressions.columns.category"></span>
+                            <i class="fa" ng-class="{'fa-angle-up': pathExpressionsCtrl.sortcolumn=='Category', 'fa-angle-down': pathExpressionsCtrl.sortcolumn=='-Category'}">
+                            </i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>         
+                    <tr class="plain-data ng-scope" ng-class="{'active': pathExpressionsCtrl.selectedExpression.EntityID==pathexpression.EntityID}" ng-repeat="pathexpression in pathExpressionsCtrl.pathExpressions.Result" ng-click="pathExpressionsCtrl.selectRow(pathexpression)">
+                        <td>
+                            <span ng-if="pathexpression.Expression.length>150">
+                                <span ng-if="!more">{{pathexpression.Expression|limitTo:150}}</span> 
+                                <span ng-if="more">{{pathexpression.Expression}}</span> 
+                                <a ng-click="more=!more">
+                                    <span ng-if="!more">more...</span>
+                                    <span ng-if="more">less</span>
+                                </a>
+                            </span> 
+                            <span ng-if="pathexpression.Expression.length<=150">
+                                {{pathexpression.Expression}}
+                            </span>
+                        </td>  
+                        <td>
+                            <span ng-bind="pathexpression.Category"></span>
+                        </td>             
+                    </tr>  
+                </tbody>
+            </table>
+       
+        <div class="panel-footer" ng-if="pathExpressionsCtrl.pathExpressions.Total>pathExpressionsCtrl.itemsPerPage">
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- <div class="dataTables_info"> -->
+                        &nbsp;
+                        <!-- Showing 1 to 10 of {{pathExpressionsCtrl.pathExpressions.Total}} entries -->
+                    <!-- </div> -->
+                </div>
+                <div class="col-sm-6">         
+                    <pagination class="pull-right" style="margin:0;" boundary-links="true" total-items="pathExpressionsCtrl.pathExpressions.Total" ng-model="pathExpressionsCtrl.currentPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="pathExpressionsCtrl.itemsPerPage" max-size="5" ng-change="pathExpressionsCtrl.getPathExpressions()"></pagination>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+</div>

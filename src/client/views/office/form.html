@@ -1,0 +1,116 @@
+<div class="page" ng-controller="OfficesCtrl as officesCtrl">
+	<h2 ng-i18next="list.offices.title"></h2>
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span ng-i18next="title.add-edit"></span></strong></div>
+		<alert ng-repeat="alert in officesCtrl.alerts" type="{{alert.type}}" close="officesCtrl.closeAlert($index)">{{alert.msg}}</alert>
+		<form name="officeForm" role="form" novalidate ng-submit="officeForm.$valid && officesCtrl.save()" class="form-horizontal row-border">
+			<div style="margin:30px;">
+				<alert ng-repeat="alert in officesCtrl.officeAlerts" type="{{alert.type}}" close="officesCtrl.closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="panel-body">
+				<div class="form-group required" ng-class="{'has-error': officeForm.inputName.$dirty && officeForm.inputName.$invalid}">
+					<label class="control-label col-sm-3">
+						<span ng-i18next="form.offices.fields.name"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputName" ng-model="officesCtrl.office.Name" ng-maxlength="20"  class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">
+						<span>Address</span>
+					</label>
+					<div class="col-sm-8">
+						<div class="form-group required">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.street1"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputStreet1" ng-model="officesCtrl.office.Street1"  class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.street2"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputName" ng-model="officesCtrl.office.Street2"  class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.street3"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputStreet3" ng-model="officesCtrl.office.Street3"  class="form-control">
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.city"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputCity" ng-model="officesCtrl.office.City"  class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.state"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputState" ng-model="officesCtrl.office.State"  class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="control-label pull-left col-sm-2">
+								<span ng-i18next="form.offices.fields.postalcode"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputPostalCode" ng-model="officesCtrl.office.PostalCode"  class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="control-label col-sm-2">
+								<span ng-i18next="form.offices.fields.country"></span>
+							</label>
+							<div class="col-sm-4">
+								<input type="text" name="inputCountry" ng-model="officesCtrl.office.Country"  class="form-control" required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">
+						<span ng-i18next="form.offices.fields.latitude"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputLatitude" ng-model="officesCtrl.office.Latitude"  class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3">
+						<span ng-i18next="form.offices.fields.longitude"></span>
+					</label>
+					<div class="col-sm-4">
+						<input type="text" name="inputLongitude" ng-model="officesCtrl.office.Longitude"  class="form-control">
+					</div>
+				</div>
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-primary" ng-show="officesCtrl.office && !officesCtrl.office.EntityID" ng-disabled="officeForm.$invalid || saving || officesCtrl.saving">
+						<span ng-i18next="button.create"></span>
+					</button>   
+					<button type="submit" class="btn btn-primary" ng-show="officesCtrl.office && officesCtrl.office.EntityID" ng-disabled="officeForm.$invalid || saving">
+						<span ng-i18next="button.done"></span>
+					</button> 
+
+					<a href="#/admin/offices" class="btn btn-default" ng-show="officesCtrl.office && !officesCtrl.office.EntityID">
+						<span ng-i18next="button.cancel"></span> 
+					</a>
+					<a class="btn btn-danger" ng-click="officesCtrl.removeOffice()" ng-show="officesCtrl.office.EntityID">
+						<span ng-i18next="button.remove"></span>
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

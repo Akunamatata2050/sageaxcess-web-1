@@ -1,0 +1,62 @@
+<div id="wrapper" ng-controller="NavigationController">
+	<nav id="headernav" class="navbar ng-hide {{getLayoutOption('sidebarThemeClass').replace('sidebar', 'navbar')}}" role="navigation" ng-show="getLayoutOption('layoutHorizontal') && !layoutLoading">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<i class="fa fa-reorder"></i>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse navbar-ex1-collapse" ng-class="{'large-icons-nav': getLayoutOption('layoutHorizontalLargeIcons')}" id="horizontal-navbar">
+			<ul class="nav navbar-nav">
+				<li ng-repeat="item in menu"
+				ng-if="!(item.hideOnHorizontal||item.separator)"
+				ng-class="{ hasChild: (item.children!==undefined),
+				active: item.selected,
+				open: (item.children!==undefined) && item.open,
+				'nav-separator': item.separator==true }"
+				ng-include="'templates/nav_renderer_horizontal.html'"
+				></li>
+			</ul>
+		</div>
+	</nav>
+	<!-- <div id="layout-static"> -->
+	<div class="static-sidebar-wrapper" ng-show="!layoutLoading">
+		<div class="static-sidebar" role="navigation">
+			<div class="sidebar">
+				<div class="logo-area">
+					<div class="logo"></div>
+				</div>
+				<div class="widget stay-on-collapse">
+					<nav class="widget-body">
+						<ul class="acc-menu" sticky-scroll="40">
+							<li ng-repeat="item in menu"
+							ng-class="{ hasChild: (item.children!==undefined),
+							active: item.selected,
+							open: (item.children!==undefined) && item.open,
+							'nav-separator': item.separator==true,
+							'search-focus': (searchQuery.length>0 && item.selected) }" 
+							ng-show="!(searchQuery.length && !item.selected)"
+							ng-include="'templates/nav_renderer.html'"
+							></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div> <!-- #sidebar-->
+	</div>
+	<div class="static-content-wrapper">
+		<ng-include src="'views/layout/header.html'"></ng-include>
+		<div class="static-content">
+			<div class="page-content" ng-view="" class="mainview-animation animated">
+			</div> <!--wrap -->
+		</div>
+		<footer role="contentinfo" ng-show="isLoggedIn " ng-cloak>
+			<div class="clearfix">
+				<ul class="list-unstyled list-inline pull-left">
+					<li><h6 style="margin: 0;">&copy; {{previousYear}} - {{currentYear}} Change Dynamix, Inc.</h6></li>
+				</ul>
+				<button class="pull-right btn btn-link btn-xs hidden-print" back-to-top><i class="ti ti-arrow-up"></i></button>
+			</div>
+		</footer>
+	</div>
+	<!-- </div> -->
+</div>
